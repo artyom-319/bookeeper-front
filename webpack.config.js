@@ -6,7 +6,7 @@ module.exports = {
     entry: "./src/index.js",
     output: {
         path: path.join(__dirname, "/dist"),
-        filename: "[name]-[hash]_bundle.js"
+        filename: "[name]-[fullhash]_bundle.js"
     },
     module: {
         rules: [
@@ -29,7 +29,7 @@ module.exports = {
         }),
     ],
     optimization: {
-        noEmitOnErrors: true,
+        emitOnErrors: false,
         minimize: true,
         minimizer: [new TerserPlugin()]
     },
