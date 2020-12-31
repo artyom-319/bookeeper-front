@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { Button, Header, Nav } from "grommet";
+import { Catalog, Group, Multiple } from "grommet-icons";
 
 const style = {
     position: 'relative',
@@ -9,8 +11,35 @@ const style = {
 };
 
 class LayoutComponent extends React.Component {
-
     render() {
+        if (this.props.children) {
+            return (
+                <Header background="brand" height="50px">
+                    <Button icon={ <Catalog /> }
+                            label="Books"
+                            fill="vertical"
+                            plain={ true }
+                            size="medium"
+                            onClick={ () => this.props.onSelect("books") }
+                            hoverIndicator
+                    />
+                    <Button icon={ <Group /> }
+                            label="Authors"
+                            fill="vertical"
+                            plain={ true }
+                            onClick={ () => this.props.onSelect("authors") }
+                            hoverIndicator
+                    />
+                    <Button icon={ <Multiple /> }
+                            label="Genres"
+                            fill="vertical"
+                            plain={ true }
+                            onClick={ () => this.props.onSelect("genres") }
+                            hoverIndicator
+                    />
+                </Header>
+            );
+        }
         return (
             <div className="b-body">
                 <div style={ style }>
