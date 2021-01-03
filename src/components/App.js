@@ -1,39 +1,45 @@
 import React from 'react';
 import { Grommet } from "grommet";
-import { defaultProps } from 'grommet';
 
 import Layout from "./Layout";
 import BookPage from "../pages/BookPage";
-
-const theme = {
-    global: {
-        font: {
-            // face: false,
-            family: 'Avenir',
-            size: '16px',
-            height: '20px',
-        },
-    },
-    button: {
-        border: {
-            width: '0px',
-        },
-    },
-};
+import AuthorsPage from "../pages/AuthorsPage";
+import GenresPage from "../pages/GenresPage";
+import '../styles/base.css';
+import { theme } from '../styles/grommet-theme';
 
 class AppComponent extends React.Component {
+    state = {
+        activeMenu: 'books',
+    };
 
     onSelect = (activeMenu) => {
         console.log(activeMenu);
+        this.setState({
+            activeMenu
+        });
     }
 
     render() {
-        console.log(defaultProps);
+        let page = null;
+
+        switch (this.state.activeMenu) {
+            case 'books':
+                page = <BookPage/>;
+                break;
+            case 'authors':
+                page = <AuthorsPage/>;
+                break;
+            case 'genres':
+                page = <GenresPage/>;
+                break;
+        }
+
         return (
             <Grommet theme={ theme }>
                 <div className="b-layout-container">
                     <Layout onSelect={ this.onSelect }>
-                        <BookPage/>
+                        { page }
                     </Layout>
                 </div>
             </Grommet>

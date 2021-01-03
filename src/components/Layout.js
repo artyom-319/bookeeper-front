@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Button, Header, Nav } from "grommet";
+import { Button, Header } from "grommet";
 import { Catalog, Group, Multiple } from "grommet-icons";
 
 const style = {
@@ -14,30 +14,35 @@ class LayoutComponent extends React.Component {
     render() {
         if (this.props.children) {
             return (
-                <Header background="brand" height="50px">
-                    <Button icon={ <Catalog /> }
-                            label="Books"
-                            fill="vertical"
-                            plain={ true }
-                            size="medium"
-                            onClick={ () => this.props.onSelect("books") }
-                            hoverIndicator
-                    />
-                    <Button icon={ <Group /> }
-                            label="Authors"
-                            fill="vertical"
-                            plain={ true }
-                            onClick={ () => this.props.onSelect("authors") }
-                            hoverIndicator
-                    />
-                    <Button icon={ <Multiple /> }
-                            label="Genres"
-                            fill="vertical"
-                            plain={ true }
-                            onClick={ () => this.props.onSelect("genres") }
-                            hoverIndicator
-                    />
-                </Header>
+                <div className="b-body">
+                    <Header background="brand" pad={{ 'horizontal': '10px' }} height="50px" justify="start" >
+                        <Button icon={ <Catalog /> }
+                                label="Books"
+                                fill="vertical"
+                                plain={ true }
+                                size="medium"
+                                onClick={ () => this.props.onSelect("books") }
+                                hoverIndicator
+                        />
+                        <Button icon={ <Group /> }
+                                label="Authors"
+                                fill="vertical"
+                                plain={ true }
+                                onClick={ () => this.props.onSelect("authors") }
+                                hoverIndicator
+                        />
+                        <Button icon={ <Multiple /> }
+                                label="Genres"
+                                fill="vertical"
+                                plain={ true }
+                                onClick={ () => this.props.onSelect("genres") }
+                                hoverIndicator
+                        />
+                    </Header>
+                    <div className="b-content">
+                        { this.props.children }
+                    </div>
+                </div>
             );
         }
         return (
