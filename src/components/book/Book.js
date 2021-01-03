@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import '../styles/base.css';
+import '../../styles/base.css';
 
 class BookComponent extends React.Component {
     render() {
@@ -36,6 +36,6 @@ BookComponent.propTypes = {
         name: PropTypes.string.isRequired,
     }),
     genre: PropTypes.string,
-}
+};
 
 export default BookComponent;

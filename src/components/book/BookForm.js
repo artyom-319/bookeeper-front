@@ -6,21 +6,27 @@ class BookFormComponent extends React.Component {
 
     state = {
         title: '',
-        author: '',
+        author: {
+            id: '',
+            name: '',
+        },
         genre: '',
+        authorName: '',
     };
 
     onCreate = e => {
         e.preventDefault();
         console.log(this.state);
+        this.state.author.name = this.state.authorName,
         this.props.onCreate(this.state);
-    }
+    };
 
     onChange = e => {
+        console.log(this.state);
         this.setState({
             [ e.target.name ]: e.target.value,
         })
-    }
+    };
 
     render() {
         return (
@@ -39,9 +45,9 @@ class BookFormComponent extends React.Component {
                     <Form.Group className="b-form-field-wrapper">
                         <Form.Control
                             className="b-book-author-form-field"
-                            value={ this.state.author }
+                            value={ this.state.authorName }
                             type="text"
-                            name="author"
+                            name="authorName"
                             placeholder="Author"
                             onChange={ this.onChange }
                         />
@@ -65,6 +71,6 @@ class BookFormComponent extends React.Component {
 
 BookFormComponent.propTypes = {
     onCreate: PropTypes.func.isRequired,
-}
+};
 
 export default BookFormComponent;

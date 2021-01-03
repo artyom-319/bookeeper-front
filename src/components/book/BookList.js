@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Book from "./Book";
-import {ListGroup} from "react-bootstrap";
+import { ListGroup } from "react-bootstrap";
 
 class BookListComponent extends React.Component {
 
@@ -17,7 +17,7 @@ class BookListComponent extends React.Component {
             <div className="b-book-list-container">
                 { this.props.isLoading ? <div>Загрузка....</div> : <ListGroup>{ books }</ListGroup> }
             </div>
-        )
+        );
     }
 }
 

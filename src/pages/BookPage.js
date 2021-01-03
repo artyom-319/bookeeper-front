@@ -1,8 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import BookFormModal from "../components/BookFormModal";
-import BookList from "../components/BookList";
+import FormModal from "../components/FormModal";
+import BookList from "../components/book/BookList";
+import BookForm from "../components/book/BookForm";
 
 const BOOK_LIST = [
     {
@@ -62,7 +63,6 @@ class BookPageComponent extends React.Component {
     }
 
     render() {
-
         return (
             <div className="b-book-container">
                 <div className="row g-2">
@@ -71,9 +71,11 @@ class BookPageComponent extends React.Component {
                 </div>
                 <br/>
                 <BookList isLoading={ this.state.isLoading } bookList={ this.state.bookList }/>
-                <BookFormModal show={ this.state.isModalOpen } handleClose={ this.onModalClose } onCreate={ this.onBookCreate }/>
+                <FormModal title="New Book" show={ this.state.isModalOpen } handleClose={ this.onModalClose }>
+                    <BookForm onCreate={ this.onBookCreate }/>
+                </FormModal>
             </div>
-        )
+        );
     }
 }
 
