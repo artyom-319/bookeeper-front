@@ -1,7 +1,17 @@
 .b-layout-container {
     position: relative;
-    width: 60%;
-    left: 20%;
-    right: 80%;
-    margin-right: 200px;
+    width: 40%;
+    left: 25%;
+}
+
+.pre-large {
+    font-size: 125%;
+}
+
+.large {
+    font-size: 150%;
+}
+
+.pre-small {
+    font-size: 80%;
 }

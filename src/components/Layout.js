@@ -1,63 +1,23 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Button, Header } from "grommet";
-import { Catalog, Group, Multiple } from "grommet-icons";
-
-const style = {
-    position: 'relative',
-    height: '500px',
-    width: '200px',
-    float: 'left',
-};
+import { Nav, Navbar } from "react-bootstrap";
 
 class LayoutComponent extends React.Component {
     render() {
-        if (this.props.children) {
-            return (
-                <div className="b-body">
-                    <Header background="brand" pad={{ 'horizontal': '10px' }} height="50px" justify="start" >
-                        <Button icon={ <Catalog /> }
-                                label="Books"
-                                fill="vertical"
-                                plain={ true }
-                                size="medium"
-                                onClick={ () => this.props.onSelect("books") }
-                                hoverIndicator
-                        />
-                        <Button icon={ <Group /> }
-                                label="Authors"
-                                fill="vertical"
-                                plain={ true }
-                                onClick={ () => this.props.onSelect("authors") }
-                                hoverIndicator
-                        />
-                        <Button icon={ <Multiple /> }
-                                label="Genres"
-                                fill="vertical"
-                                plain={ true }
-                                onClick={ () => this.props.onSelect("genres") }
-                                hoverIndicator
-                        />
-                    </Header>
-                    <div className="b-content">
-                        { this.props.children }
-                    </div>
-                </div>
-            );
-        }
         return (
-            <div className="b-body">
-                <div style={ style }>
-                    <div className="b-left-menu">
-                        <a onClick={ () => this.props.onSelect("books") } >Книги</a>
-                        <br/>
-                        <a onClick={ () => this.props.onSelect("authors") } >Авторы</a>
-                        <br/>
-                        <a onClick={ () => this.props.onSelect("genres") } >Жанры</a>
-                        <br/>
-                    </div>
+            <div>
+                <Navbar bg="dark" variant="dark">
+                    <Navbar.Brand href="/">Bookeeper</Navbar.Brand>
+                    <Nav className="mr-auto">
+                        <Nav.Link onClick={ () => this.props.onSelect("books") }>Books</Nav.Link>
+                        <Nav.Link onClick={ () => this.props.onSelect("authors") }>Authors</Nav.Link>
+                        <Nav.Link onClick={ () => this.props.onSelect("genres") }>Genres</Nav.Link>
+                    </Nav>
+                </Navbar>
+                <br/>
+                <div className="b-content">
+                    { this.props.children }
                 </div>
-                <div className="b-content-container">{ this.props.children }</div>
             </div>
         );
     }

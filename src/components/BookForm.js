@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button, Form } from "react-bootstrap";
 
 class BookFormComponent extends React.Component {
 
@@ -24,42 +25,39 @@ class BookFormComponent extends React.Component {
     render() {
         return (
             <div className="b-book-form-wrapper">
-                <h2>Форма добавления</h2>
-                <form>
-                    <div className="b-form-field-wrapper">
-                        <input
+                <Form>
+                    <Form.Group className="b-form-field-wrapper">
+                        <Form.Control
                             className="b-book-title-form-field"
                             value={ this.state.title }
                             type="text"
                             name="title"
-                            placeholder="Заголовок книги"
+                            placeholder="Title"
                             onChange={ this.onChange }
                         />
-                    </div>
-                    <div className="b-form-field-wrapper">
-                        <input
+                    </Form.Group>
+                    <Form.Group className="b-form-field-wrapper">
+                        <Form.Control
                             className="b-book-author-form-field"
                             value={ this.state.author }
                             type="text"
                             name="author"
-                            placeholder="Автор книги"
+                            placeholder="Author"
                             onChange={ this.onChange }
                         />
-                    </div>
-                    <div className="b-form-field-wrapper">
-                        <input
+                    </Form.Group>
+                    <Form.Group className="b-form-field-wrapper">
+                        <Form.Control
                             className="b-book-genre-form-field"
                             value={ this.state.genre }
                             type="text"
                             name="genre"
-                            placeholder="Жанр книги"
+                            placeholder="Genre"
                             onChange={ this.onChange }
                         />
-                    </div>
-                    <div className="b-form-field-wrapper">
-                        <button onClick={ this.onCreate }>Создать</button>
-                    </div>
-                </form>
+                    </Form.Group>
+                    <Button className="btn btn-primary mb-3" onClick={ this.onCreate }>Создать</Button>
+                </Form>
             </div>
         );
     }

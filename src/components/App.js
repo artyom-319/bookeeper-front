@@ -1,12 +1,11 @@
 import React from 'react';
-import { Grommet } from "grommet";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Layout from "./Layout";
 import BookPage from "../pages/BookPage";
 import AuthorsPage from "../pages/AuthorsPage";
 import GenresPage from "../pages/GenresPage";
 import '../styles/base.css';
-import { theme } from '../styles/grommet-theme';
 
 class AppComponent extends React.Component {
     state = {
@@ -36,13 +35,11 @@ class AppComponent extends React.Component {
         }
 
         return (
-            <Grommet theme={ theme }>
-                <div className="b-layout-container">
-                    <Layout onSelect={ this.onSelect }>
-                        { page }
-                    </Layout>
-                </div>
-            </Grommet>
+            <div className="b-layout-container">
+                <Layout onSelect={ this.onSelect }>
+                    { page }
+                </Layout>
+            </div>
         );
     }
 }
