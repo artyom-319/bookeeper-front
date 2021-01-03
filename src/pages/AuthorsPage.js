@@ -73,7 +73,7 @@ class AuthorsPageComponent extends React.Component {
                     <AuthorForm onCreate={ this.onAuthorCreate }/>
                 </FormModal>
             </div>
-        )
+        );
     }
 }
 

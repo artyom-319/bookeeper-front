@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ListGroup } from "react-bootstrap";
 
 import Author from "./Author";
-import { ListGroup } from "react-bootstrap";
 
 class AuthorListComponent extends React.Component {
     render() {
