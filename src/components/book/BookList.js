@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ListGroup, Spinner } from "react-bootstrap";
 
 import Book from "./Book";
-import { ListGroup } from "react-bootstrap";
 
 class BookListComponent extends React.Component {
 
@@ -10,12 +10,20 @@ class BookListComponent extends React.Component {
         const books = this.props.bookList.map(
             book =>
                 <ListGroup.Item>
-                    <Book key={ book.id } id={ book.id } title={ book.title } author={ book.author } genre={ book.genre } />
+                    <Book
+                        key={ book.id }
+                        id={ book.id }
+                        title={ book.title }
+                        author={ book.author }
+                        genre={ book.genre }
+                        onAuthorDetailsOpen={ this.props.onAuthorDetailsOpen }
+                        onBookDetailsOpen={ this.props.onBookDetailsOpen }
+                    />
                 </ListGroup.Item>
         );
         return (
             <div className="b-book-list-container">
-                { this.props.isLoading ? <div>Загрузка....</div> : <ListGroup>{ books }</ListGroup> }
+                { this.props.isLoading ? <Spinner animation="border" /> : <ListGroup>{ books }</ListGroup> }
             </div>
         );
     }
@@ -24,6 +32,8 @@ class BookListComponent extends React.Component {
 BookListComponent.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     bookList: PropTypes.arrayOf(PropTypes.shape(Book.propTypes)),
+    onAuthorDetailsOpen: PropTypes.func.isRequired,
+    onBookDetailsOpen: PropTypes.func.isRequired,
 };
 
 export default BookListComponent;

@@ -4,27 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FormModal from "../components/FormModal";
 import BookList from "../components/book/BookList";
 import BookForm from "../components/book/BookForm";
-
-const BOOK_LIST = [
-    {
-        id: 1,
-        title: 'TITLE 1',
-        author: {
-            id: '1',
-            name: 'AUTHOR',
-        },
-        genre: 'GENRE',
-    },
-    {
-        id: 2,
-        title: 'TITLE 2',
-        author: {
-            id: '1',
-            name: 'AUTHOR',
-        },
-        genre: 'GENRE',
-    }
-];
+import PropTypes from "prop-types";
+import Book from "../components/book/Book";
 
 class BookPageComponent extends React.Component {
     state = {
@@ -57,7 +38,7 @@ class BookPageComponent extends React.Component {
     componentDidMount() {
         this.setState({ isLoading: true });
         window.setTimeout(
-            () => this.setState({ bookList: BOOK_LIST, isLoading: false }),
+            () => this.setState({ bookList: this.props.bookList, isLoading: false }),
             500
         );
     }
@@ -70,7 +51,12 @@ class BookPageComponent extends React.Component {
                     <a href="#" onClick={ this.onClick } >new</a>
                 </div>
                 <br/>
-                <BookList isLoading={ this.state.isLoading } bookList={ this.state.bookList }/>
+                <BookList
+                    isLoading={ this.state.isLoading }
+                    bookList={ this.state.bookList }
+                    onAuthorDetailsOpen={ this.props.onAuthorDetailsOpen }
+                    onBookDetailsOpen={ this.props.onBookDetailsOpen }
+                />
                 <FormModal title="New Book" show={ this.state.isModalOpen } handleClose={ this.onModalClose }>
                     <BookForm onCreate={ this.onBookCreate }/>
                 </FormModal>
@@ -78,5 +64,11 @@ class BookPageComponent extends React.Component {
         );
     }
 }
+
+BookPageComponent.propTypes = {
+    bookList: PropTypes.arrayOf(PropTypes.shape(Book.propTypes)).isRequired,
+    onAuthorDetailsOpen: PropTypes.func.isRequired,
+    onBookDetailsOpen: PropTypes.func.isRequired,
+};
 
 export default BookPageComponent;

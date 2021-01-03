@@ -4,6 +4,15 @@ import PropTypes from 'prop-types';
 import '../../styles/base.css';
 
 class BookComponent extends React.Component {
+
+    onBookSelect = () => {
+        this.props.onBookDetailsOpen(this.props.id);
+    };
+
+    onAuthorSelect = () => {
+        this.props.onAuthorDetailsOpen(this.props.author.id);
+    };
+
     render() {
         let genre = null;
         if (this.props.genre) {
@@ -12,12 +21,16 @@ class BookComponent extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <a className="book-title pre-large col-8 text-decoration-none text-dark"
-                       href={ `/books/${ this.props.id }` }>
+                    <a className="pre-large col-8 text-decoration-none text-dark"
+                       // href={ `/books/${ this.props.id }` }
+                       onSelect={ this.onBookSelect }
+                       onClick={ this.onBookSelect }>
                         { this.props.title }
                     </a>
                     <a className="book-author col-4 text-decoration-none"
-                       href={ `/authors/${ this.props.author.id }` }>
+                       // href={ `/authors/${ this.props.author.id }` }
+                       onClick={ this.onAuthorSelect }
+                       onSelect={ this.onAuthorSelect }>
                         { this.props.author.name }
                     </a>
                     <br/>
@@ -36,6 +49,8 @@ BookComponent.propTypes = {
         name: PropTypes.string.isRequired,
     }),
     genre: PropTypes.string,
+    onBookDetailsOpen: PropTypes.func.isRequired,
+    onAuthorDetailsOpen: PropTypes.func.isRequired,
 };
 
 export default BookComponent;
