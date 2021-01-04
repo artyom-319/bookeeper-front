@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Layout from "./Layout";
@@ -6,6 +7,7 @@ import BookPage from "../pages/BookPage";
 import AuthorsPage from "../pages/AuthorsPage";
 import GenresPage from "../pages/GenresPage";
 import BookDetailsPage from "../pages/BookDetailsPage";
+import selectPage from '../actions/routing';
 import { BOOK_LIST } from "../constants/mocked_objects";
 import '../styles/base.css';
 
@@ -17,12 +19,10 @@ class AppComponent extends React.Component {
 
     onMenuSelect = (activeMenu) => {
         console.log(activeMenu);
-        this.setState({
-            activePage: activeMenu,
-            objectId: '',
-        });
+        this.props.selectPage(activeMenu);
     };
 
+    // todo: dispatch actions instead of setState
     onAuthorDetailsSelect = objectId => {
         console.log(`selected author id=${ objectId }`);
         this.setState({
@@ -31,6 +31,7 @@ class AppComponent extends React.Component {
         });
     };
 
+    // todo: dispatch actions instead of setState
     onBookDetailsSelect = bookId => {
         console.log(`selected book id=${ bookId }`);
         this.setState({
@@ -42,7 +43,7 @@ class AppComponent extends React.Component {
     render() {
         let page = null;
 
-        switch (this.state.activePage) {
+        switch (this.props.activePage) {
             case 'books':
                 page = <BookPage bookList={ BOOK_LIST } onBookDetailsOpen={ this.onBookDetailsSelect } onAuthorDetailsOpen={ this.onAuthorDetailsSelect }/>;
                 break;
@@ -67,4 +68,15 @@ class AppComponent extends React.Component {
     }
 }
 
-export default AppComponent;
+const mapStateToProps = state => ({
+    activePage: state.routing.activePage,
+});
+
+const mapDispatchToProps = dispatch => ({
+    selectPage: activePage => dispatch(selectPage(activePage)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AppComponent);

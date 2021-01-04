@@ -3,15 +3,18 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: "./src/index.jsx",
     output: {
         path: path.join(__dirname, "/dist"),
-        filename: "[name]-[fullhash]_bundle.js"
+        filename: "[name]_bundle.js"
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
+                resolve: {
+                    extensions: ['.js', '.jsx'],
+                },
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader"
