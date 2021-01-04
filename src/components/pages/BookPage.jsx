@@ -1,11 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import FormModal from "../components/FormModal";
-import BookList from "../components/book/BookList";
-import BookForm from "../components/book/BookForm";
+import FormModal from "../FormModal";
+import BookList from "../book/BookList";
+import BookForm from "../book/BookForm";
 import PropTypes from "prop-types";
-import Book from "../components/book/Book";
+import Book from "../book/Book";
 
 class BookPageComponent extends React.Component {
     state = {

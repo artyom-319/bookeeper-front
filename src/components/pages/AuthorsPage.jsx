@@ -1,9 +1,9 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import FormModal from "../components/FormModal";
-import AuthorList from "../components/author/AuthorList";
-import AuthorForm from "../components/author/AuthorForm";
+import FormModal from "../FormModal";
+import AuthorList from "../author/AuthorList";
+import AuthorForm from "../author/AuthorForm";
 
 const AUTHOR_LIST = [
     {

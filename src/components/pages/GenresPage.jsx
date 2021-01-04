@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import GenreList from "../components/genre/GenreList";
+import GenreList from "../genre/GenreList";
 
 const GENRE_LIST = [
     {

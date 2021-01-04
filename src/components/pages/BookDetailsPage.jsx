@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Row } from "react-bootstrap";
 
-import Book from "../components/book/Book";
-import BookDetails from "../components/book/BookDetails";
-import CommentList from '../components/comment/CommentList';
+import Book from "../book/Book";
+import BookDetails from "../book/BookDetails";
+import CommentList from '../comment/CommentList';
 
 class BookDetailsPageComponent extends React.Component {
     state = {

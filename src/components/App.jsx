@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Layout from "./Layout";
-import BookPage from "../pages/BookPage";
-import AuthorsPage from "../pages/AuthorsPage";
-import GenresPage from "../pages/GenresPage";
-import BookDetailsPage from "../pages/BookDetailsPage";
+import BookPage from "./pages/BookPage";
+import AuthorsPage from "./pages/AuthorsPage";
+import GenresPage from "./pages/GenresPage";
+import BookDetailsPage from "./pages/BookDetailsPage";
 import selectPage from '../actions/routing';
 import { BOOK_LIST } from "../constants/mocked_objects";
 import '../styles/base.css';
