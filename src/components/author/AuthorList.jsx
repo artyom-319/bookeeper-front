@@ -4,39 +4,12 @@ import { connect } from 'react-redux';
 import { ListGroup, Spinner } from "react-bootstrap";
 
 import Author from "./Author";
-import { loadAuthors, loadAuthorsSuccess } from '../../actions/authors';
-
-const AUTHOR_LIST = {
-    1: {
-        id: 1,
-        name: 'Author 1',
-        country: 'Country 1',
-    },
-    2: {
-        id: 2,
-        name: 'Author 2',
-        country: 'Country 2',
-    },
-    3: {
-        id: 3,
-        name: 'Author 3',
-        country: 'Country 3',
-    }
-};
-
-const apiResponse = {
-    authorList: [2, 3],
-    authors: AUTHOR_LIST,
-};
+import { loadAuthors } from '../../actions/authors';
+import urls from '../../constants/urls';
 
 class AuthorListComponent extends React.Component {
     componentDidMount() {
-        this.props.loadAuthors();
-        // this.setState({ isLoading: true });
-        window.setTimeout(
-            () => this.props.loadAuthorsSuccess(apiResponse),
-            500
-        );
+        this.props.loadAuthors(urls.authors);
     }
 
     render() {
@@ -60,7 +33,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ loadAuthors, loadAuthorsSuccess }, dispatch),
+    ...bindActionCreators({ loadAuthors }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorListComponent);

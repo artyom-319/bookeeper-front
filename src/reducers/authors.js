@@ -13,11 +13,13 @@ export default function authorReducer(store = initialState, action) {
         case LOAD_AUTHORS:
             return update(store, { isLoading: { $set: true } });
         case LOAD_AUTHORS_SUCCESS:
+            const authorIds = action.payload.map(e => e.id);
+            const authors = action.payload.reduce((a, e) => ({...a, [e.id]: e}), {});
             return update(store, {
                 isLoading: { $set: false },
-                authorList: { $set: action.apiResponse.authorList },
+                authorList: { $set: authorIds },
                 authors: {
-                    $merge: action.apiResponse.authors,
+                    $merge: authors,
                 },
             });
         case LOAD_AUTHORS_ERROR:
