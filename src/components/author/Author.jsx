@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import '../../styles/base.css';
 
@@ -26,8 +27,14 @@ class AuthorComponent extends React.Component {
 
 AuthorComponent.propTypes = {
     id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    country: PropTypes.string,
-}
+};
 
-export default AuthorComponent;
+const mapStateToProps = (state, props) => ({
+    name: state.authors.authors[props.id].name,
+    country: state.authors.authors[props.id].country,
+});
+
+const mapDispatchToProps = dispatch => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorComponent);

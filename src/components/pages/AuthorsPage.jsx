@@ -5,30 +5,13 @@ import FormModal from "../FormModal";
 import AuthorList from "../author/AuthorList";
 import AuthorForm from "../author/AuthorForm";
 
-const AUTHOR_LIST = [
-    {
-        id: 1,
-        name: 'Author 1',
-        country: 'Country 1',
-    },
-    {
-        id: 2,
-        name: 'Author 2',
-        country: 'Country 2',
-    },
-    {
-        id: 3,
-        name: 'Author 3',
-        country: 'Country 3',
-    }
-];
 
 class AuthorsPageComponent extends React.Component {
-    state = {
-        authorList: [],
-        isLoading: false,
-        isModalOpen: false,
-    };
+    // state = {
+    //     authorList: [],
+    //     isLoading: false,
+    //     isModalOpen: false,
+    // };
 
     onClick = () => {
         console.log("'new' clicked");
@@ -51,14 +34,6 @@ class AuthorsPageComponent extends React.Component {
         });
     };
 
-    componentDidMount() {
-        this.setState({ isLoading: true });
-        window.setTimeout(
-            () => this.setState({ authorList: AUTHOR_LIST, isLoading: false }),
-            500
-        );
-    }
-
     render() {
 
         return (
@@ -68,10 +43,10 @@ class AuthorsPageComponent extends React.Component {
                     <a href="#" onClick={ this.onClick } >new</a>
                 </div>
                 <br/>
-                <AuthorList isLoading={ this.state.isLoading } authorList={ this.state.authorList }/>
-                <FormModal title="New Author" show={ this.state.isModalOpen } handleClose={ this.onModalClose }>
-                    <AuthorForm onCreate={ this.onAuthorCreate }/>
-                </FormModal>
+                <AuthorList/>
+                {/*<FormModal title="New Author" show={ this.state.isModalOpen } handleClose={ this.onModalClose }>*/}
+                {/*    <AuthorForm onCreate={ this.onAuthorCreate }/>*/}
+                {/*</FormModal>*/}
             </div>
         );
     }
