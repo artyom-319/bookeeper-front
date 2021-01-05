@@ -3,32 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import GenreList from "../genre/GenreList";
 
-const GENRE_LIST = [
-    {
-        title: 'Genre 1',
-    },
-    {
-        title: 'Genre 2',
-    },
-    {
-        title: 'Genre 3',
-    },
-];
-
 class GenresPageComponent extends React.Component {
-    state = {
-        genreList: [],
-        isLoading: false,
-    };
-
-    componentDidMount() {
-        this.setState({ isLoading: true });
-        window.setTimeout(
-            () => this.setState({ genreList: GENRE_LIST, isLoading: false }),
-            500
-        );
-    }
-
     render() {
         return (
             <div className="b-genre-container">
@@ -36,7 +11,7 @@ class GenresPageComponent extends React.Component {
                     <span className="large col-10" >Genres</span>
                 </div>
                 <br/>
-                <GenreList isLoading={ this.state.isLoading } genreList={ this.state.genreList }/>
+                <GenreList/>
             </div>
         );
     }

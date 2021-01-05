@@ -11,12 +11,11 @@ const initStore = () => {
         enhancers.push(window.devToolsExtension());
     }
 
-    const store = createStore(
+    return createStore(
         initReducers(),
         initialStore,
         compose(applyMiddleware(createMiddleware()), ...enhancers)
     );
-    return store;
 };
 
 export default initStore;

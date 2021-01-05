@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import routingReducer from './routing';
+
 import authorReducer from './authors';
+import genreReducer from './genres';
+import routingReducer from './routing';
 
 export default function initReducers() {
     return combineReducers({
@@ -8,7 +10,7 @@ export default function initReducers() {
         routing: routingReducer,
         // books: bookReducer,
         authors: authorReducer,
-        // genres: genreReducer,
+        genres: genreReducer,
         // comments: commentReducer,
     });
 }

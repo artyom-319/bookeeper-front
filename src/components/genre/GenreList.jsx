@@ -1,28 +1,39 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { ListGroup } from "react-bootstrap";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { ListGroup, Spinner } from 'react-bootstrap';
 
-import Genre from "./Genre";
+import Genre from './Genre';
+import { loadGenres } from '../../actions/genres';
+import urls from '../../constants/urls';
 
 class GenreListComponent extends React.Component {
+    componentDidMount() {
+        this.props.loadGenres(urls.genres);
+    }
+
     render() {
-        const genres = this.props.genreList.map(
-            genre =>
+        const genres = this.props.genreTitles.map(
+            genreTitle =>
                 <ListGroup.Item>
-                    <Genre key={ genre.title } title={ genre.title } />
+                    <Genre key={ genreTitle } title={ genreTitle } />
                 </ListGroup.Item>
         );
         return (
             <div className="b-genre-list-container">
-                { this.props.isLoading ? <div>Загрузка....</div> : <ListGroup>{ genres }</ListGroup> }
+                { this.props.isLoading ? <Spinner animation="border" /> : <ListGroup>{ genres }</ListGroup> }
             </div>
         );
     }
 }
 
-GenreListComponent.propTypes = {
-    isLoading: PropTypes.bool.isRequired,
-    genreList: PropTypes.arrayOf(PropTypes.shape(Genre.propTypes)),
-};
+const mapStateToProps = state => ({
+    genreTitles: state.genres.genreTitles,
+    isLoading: state.genres.isLoading,
+});
 
-export default GenreListComponent;
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ loadGenres }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GenreListComponent);
