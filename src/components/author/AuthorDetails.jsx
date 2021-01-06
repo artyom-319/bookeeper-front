@@ -1,15 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Card, Col, Row } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-class BookDetailsComponent extends React.Component {
-
+class AuthorDetailsComponent extends React.Component {
     render() {
         return (
             <Card body className="col-md-12">
                 <Row className="row">
                     <Col className="col-9">
-                        <b>{ this.props.title }</b>
+                        <b>{ this.props.name }</b>
                     </Col>
                     <Col className="col-1">
                         <a className="text-decoration-none" href="#">edit</a>
@@ -18,16 +17,10 @@ class BookDetailsComponent extends React.Component {
                         <a className="text-danger" href="#">delete</a>
                     </Col>
                 </Row>
-                <Row className="row">
-                    <Col>
-                        <a className="text-secondary text-decoration-none">{ this.props.author.name }</a>
-                    </Col>
-                </Row>
                 <br/>
                 <Row className="row">
                     <Col>
-                        <small className="text-primary">[{ this.props.genre }]</small>
-                        <br/>
+                        <a className="text-secondary text-decoration-none">{ this.props.country }</a>
                     </Col>
                 </Row>
             </Card>
@@ -35,14 +28,10 @@ class BookDetailsComponent extends React.Component {
     }
 }
 
-BookDetailsComponent.propTypes = {
+AuthorDetailsComponent.propTypes = {
     id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    author: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-    }),
-    genre: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    country: PropTypes.string,
 };
 
-export default BookDetailsComponent;
+export default AuthorDetailsComponent;

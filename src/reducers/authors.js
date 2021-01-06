@@ -10,8 +10,8 @@ import {
 } from '../actions/authors';
 
 const initialState = {
-    authorList: [],
-    authors: {},
+    objectIds: [],
+    objects: {},
     isLoading: false,
     isModalOpen: false,
 };
@@ -26,8 +26,8 @@ export default function authorReducer(store = initialState, action) {
             const authors = action.payload.reduce((a, e) => ({...a, [e.id]: e}), {});
             return update(store, {
                 isLoading: { $set: false },
-                authorList: { $set: authorIds },
-                authors: {
+                objectIds: { $set: authorIds },
+                objects: {
                     $merge: authors,
                 },
             });
@@ -40,8 +40,8 @@ export default function authorReducer(store = initialState, action) {
             console.log(action);
             return update(store, {
                 isModalOpen: { $set: false },
-                authorList: { $unshift: [ action.payload.id ] },
-                authors: { $merge: { [action.payload.id]: action.payload }}
+                objectIds: { $unshift: [ action.payload.id ] },
+                objects: { $merge: { [action.payload.id]: action.payload }}
             });
         case OPEN_MODAL:
             return update(store, { isModalOpen: { $set: true } });

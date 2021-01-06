@@ -8,6 +8,10 @@ export const CREATE_AUTHOR = 'CREATE_AUTHOR';
 export const CREATE_AUTHOR_SUCCESS = 'CREATE_AUTHOR_SUCCESS';
 export const CREATE_AUTHOR_ERROR = 'CREATE_AUTHOR_ERROR';
 
+export const LOAD_AUTHOR_DETAILS = 'LOAD_AUTHOR_DETAILS';
+export const LOAD_AUTHOR_DETAILS_SUCCESS = 'LOAD_AUTHOR_DETAILS_SUCCESS';
+export const LOAD_AUTHOR_DETAILS_ERROR = 'LOAD_AUTHOR_DETAILS_ERROR';
+
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 
@@ -35,6 +39,18 @@ export const createAuthor = (url, data) => {
             CREATE_AUTHOR,
             CREATE_AUTHOR_SUCCESS,
             CREATE_AUTHOR_ERROR,
+        ],
+    });
+};
+
+export const loadAuthorDetails = url => {
+    return createAction({
+        endpoint: url,
+        method: 'GET',
+        types: [
+            LOAD_AUTHOR_DETAILS,
+            LOAD_AUTHOR_DETAILS_SUCCESS,
+            LOAD_AUTHOR_DETAILS_ERROR,
         ],
     });
 };

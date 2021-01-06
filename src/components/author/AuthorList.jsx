@@ -1,9 +1,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { ListGroup, Spinner } from "react-bootstrap";
+import { ListGroup, Spinner } from 'react-bootstrap';
 
-import Author from "./Author";
+import Author from './Author';
 import { loadAuthors } from '../../actions/authors';
 import urls from '../../constants/urls';
 
@@ -13,7 +13,7 @@ class AuthorListComponent extends React.Component {
     }
 
     render() {
-        const authors = this.props.authorList.map(
+        const authors = this.props.objectIds.map(
             authorId =>
                 <ListGroup.Item>
                     <Author key={ authorId } id={ authorId } />
@@ -28,8 +28,8 @@ class AuthorListComponent extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    authorList: state.authors.authorList,
-    isLoading: state.authors.isLoading,
+    objectIds: state.author.list.objectIds,
+    isLoading: state.author.list.isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({

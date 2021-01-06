@@ -28,7 +28,7 @@ FormModalComponent.propTypes = {
 
 // todo: вынести из FormModal в родительский
 const mapStateToProps = state => ({
-    show: state.authors.isModalOpen,
+    show: state.author.list.isModalOpen,
 });
 
 const mapDispatchToProps = dispatch => ({
