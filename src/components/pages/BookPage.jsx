@@ -1,11 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import FormModal from "../FormModal";
-import BookList from "../book/BookList";
-import BookForm from "../book/BookForm";
-import PropTypes from "prop-types";
-import Book from "../book/Book";
+import FormModal from '../FormModal';
+import BookList from '../book/BookList';
+import BookForm from '../book/BookForm';
+import PropTypes from 'prop-types';
+import Book from '../book/Book';
 
 class BookPageComponent extends React.Component {
     state = {
@@ -47,15 +47,13 @@ class BookPageComponent extends React.Component {
         return (
             <div className="b-book-container">
                 <div className="row g-2">
-                    <span className="large col-10" >Book Collection</span>
+                    <span className="large col-11" >Book Collection</span>
                     <a href="#" onClick={ this.onClick } >new</a>
                 </div>
                 <br/>
                 <BookList
                     isLoading={ this.state.isLoading }
                     bookList={ this.state.bookList }
-                    onAuthorDetailsOpen={ this.props.onAuthorDetailsOpen }
-                    onBookDetailsOpen={ this.props.onBookDetailsOpen }
                 />
                 <FormModal title="New Book" show={ this.state.isModalOpen } handleClose={ this.onModalClose }>
                     <BookForm onCreate={ this.onBookCreate }/>
@@ -67,8 +65,6 @@ class BookPageComponent extends React.Component {
 
 BookPageComponent.propTypes = {
     bookList: PropTypes.arrayOf(PropTypes.shape(Book.propTypes)).isRequired,
-    onAuthorDetailsOpen: PropTypes.func.isRequired,
-    onBookDetailsOpen: PropTypes.func.isRequired,
 };
 
 export default BookPageComponent;

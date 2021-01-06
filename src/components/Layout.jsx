@@ -1,6 +1,8 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar } from 'react-bootstrap';
+
+import { AUTHORS_PAGE, BOOKS_PAGE, GENRES_PAGE } from '../constants/pages';
 
 class LayoutComponent extends React.Component {
     render() {
@@ -9,9 +11,9 @@ class LayoutComponent extends React.Component {
                 <Navbar bg="dark" variant="dark">
                     <Navbar.Brand href="/">Bookeeper</Navbar.Brand>
                     <Nav className="mr-auto">
-                        <Nav.Link onClick={ () => this.props.onSelect("books") }>Books</Nav.Link>
-                        <Nav.Link onClick={ () => this.props.onSelect("authors") }>Authors</Nav.Link>
-                        <Nav.Link onClick={ () => this.props.onSelect("genres") }>Genres</Nav.Link>
+                        <Nav.Link onClick={ () => this.props.onSelect(BOOKS_PAGE) }>Books</Nav.Link>
+                        <Nav.Link onClick={ () => this.props.onSelect(AUTHORS_PAGE) }>Authors</Nav.Link>
+                        <Nav.Link onClick={ () => this.props.onSelect(GENRES_PAGE) }>Genres</Nav.Link>
                     </Nav>
                 </Navbar>
                 <br/>

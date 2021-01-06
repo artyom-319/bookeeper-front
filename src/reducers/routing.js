@@ -1,9 +1,18 @@
 import { SELECT_PAGE } from '../actions/routing';
+import { BOOKS_PAGE } from '../constants/pages';
 
-export default function routingReducer(store = { activePage: 'books' }, action) {
+const initialStore = {
+    activePage: BOOKS_PAGE,
+    entityId: null,
+};
+
+export default function routingReducer(store = initialStore, action) {
     switch (action.type) {
         case SELECT_PAGE:
-            return {activePage: action.activePage};
+            return {
+                activePage: action.activePage,
+                entityId: action.entityId,
+            };
         default:
             return store;
     }

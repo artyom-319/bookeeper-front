@@ -1,55 +1,41 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import FormModal from "../FormModal";
-import AuthorList from "../author/AuthorList";
-import AuthorForm from "../author/AuthorForm";
+import FormModal from '../FormModal';
+import AuthorList from '../author/AuthorList';
+import AuthorForm from '../author/AuthorForm';
+import { openModal } from '../../actions/authors';
 
 
 class AuthorsPageComponent extends React.Component {
-    // state = {
-    //     authorList: [],
-    //     isLoading: false,
-    //     isModalOpen: false,
-    // };
-
     onClick = () => {
-        console.log("'new' clicked");
-        this.setState({
-            isModalOpen: true,
-        });
-    };
-
-    onAuthorCreate = author => {
-        console.log(author);
-        this.setState({
-            authorList: [ author, ...this.state.authorList ],
-            isModalOpen: false,
-        });
-    };
-
-    onModalClose = () => {
-        this.setState({
-            isModalOpen: false,
-        });
+        this.props.openModal();
     };
 
     render() {
-
         return (
             <div className="b-author-container">
                 <div className="row g-2">
-                    <span className="large col-10" >Authors</span>
+                    <span className="large col-11" >Authors</span>
                     <a href="#" onClick={ this.onClick } >new</a>
                 </div>
                 <br/>
                 <AuthorList/>
-                {/*<FormModal title="New Author" show={ this.state.isModalOpen } handleClose={ this.onModalClose }>*/}
-                {/*    <AuthorForm onCreate={ this.onAuthorCreate }/>*/}
-                {/*</FormModal>*/}
+                <FormModal title="New Author">
+                    <AuthorForm/>
+                </FormModal>
             </div>
         );
     }
 }
 
-export default AuthorsPageComponent;
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ openModal }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorsPageComponent);

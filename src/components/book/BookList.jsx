@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, Spinner } from "react-bootstrap";
+import { ListGroup, Spinner } from 'react-bootstrap';
 
-import Book from "./Book";
+import Book from './Book';
 
 class BookListComponent extends React.Component {
 
@@ -16,8 +16,6 @@ class BookListComponent extends React.Component {
                         title={ book.title }
                         author={ book.author }
                         genre={ book.genre }
-                        onAuthorDetailsOpen={ this.props.onAuthorDetailsOpen }
-                        onBookDetailsOpen={ this.props.onBookDetailsOpen }
                     />
                 </ListGroup.Item>
         );
@@ -32,8 +30,6 @@ class BookListComponent extends React.Component {
 BookListComponent.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     bookList: PropTypes.arrayOf(PropTypes.shape(Book.propTypes)),
-    onAuthorDetailsOpen: PropTypes.func.isRequired,
-    onBookDetailsOpen: PropTypes.func.isRequired,
 };
 
 export default BookListComponent;

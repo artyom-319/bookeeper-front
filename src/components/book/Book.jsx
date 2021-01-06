@@ -1,22 +1,30 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import selectPage from '../../actions/routing';
+import { BOOK_DETAILS_PAGE, AUTHOR_DETAILS_PAGE } from '../../constants/pages';
 import '../../styles/base.css';
 
 class BookComponent extends React.Component {
 
     onBookSelect = () => {
-        this.props.onBookDetailsOpen(this.props.id);
+        this.props.selectPage(BOOK_DETAILS_PAGE, this.props.id);
     };
 
     onAuthorSelect = () => {
-        this.props.onAuthorDetailsOpen(this.props.author.id);
+        this.props.selectPage(AUTHOR_DETAILS_PAGE, this.props.author.id);
     };
 
     render() {
         let genre = null;
         if (this.props.genre) {
-            genre = <a className="text-secondary pre-small" href={ `/genres/${ this.props.genre }/books`}>{ this.props.genre }</a>
+            genre =
+                <a className="text-secondary pre-small"
+                   href={ `/genres/${ this.props.genre }/books`}>
+                    { this.props.genre }
+                </a>;
         }
         return (
             <div>
@@ -49,8 +57,13 @@ BookComponent.propTypes = {
         name: PropTypes.string.isRequired,
     }),
     genre: PropTypes.string,
-    onBookDetailsOpen: PropTypes.func.isRequired,
-    onAuthorDetailsOpen: PropTypes.func.isRequired,
 };
 
-export default BookComponent;
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ selectPage }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookComponent);

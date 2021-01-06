@@ -1,25 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Form } from "react-bootstrap";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Button, Form } from 'react-bootstrap';
+
+import { createAuthor } from '../../actions/authors';
+import urls from '../../constants/urls';
+
+const initialState = {
+    name: '',
+    country: '',
+};
 
 class AuthorFormComponent extends React.Component {
-
-    state = {
-        name: '',
-        country: '',
-    };
+    state = initialState;
 
     onCreate = e => {
         e.preventDefault();
         console.log(this.state);
-        this.props.onCreate(this.state);
-    }
+        this.props.createAuthor(urls.authors, JSON.stringify(this.state));
+        // todo: мб стэйт и не нужен
+        this.setState(initialState);
+    };
 
     onChange = e => {
         this.setState({
             [ e.target.name ]: e.target.value,
-        })
-    }
+        });
+    };
 
     render() {
         return (
@@ -50,8 +57,11 @@ class AuthorFormComponent extends React.Component {
     }
 }
 
-AuthorFormComponent.propTypes = {
-    onCreate: PropTypes.func.isRequired,
-}
+const mapStateToProps = state => ({
+});
 
-export default AuthorFormComponent;
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ createAuthor }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthorFormComponent);

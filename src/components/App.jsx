@@ -2,59 +2,36 @@ import React from 'react';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import Layout from "./Layout";
-import BookPage from "./pages/BookPage";
-import AuthorsPage from "./pages/AuthorsPage";
-import GenresPage from "./pages/GenresPage";
-import BookDetailsPage from "./pages/BookDetailsPage";
+import Layout from './Layout';
+import BookPage from './pages/BookPage';
+import AuthorsPage from './pages/AuthorsPage';
+import GenresPage from './pages/GenresPage';
+import BookDetailsPage from './pages/BookDetailsPage';
 import selectPage from '../actions/routing';
-import { BOOK_LIST } from "../constants/mocked_objects";
+import { BOOK_LIST } from '../constants/mocked_objects';
+import { AUTHORS_PAGE, BOOK_DETAILS_PAGE, BOOKS_PAGE, GENRES_PAGE } from '../constants/pages';
 import '../styles/base.css';
 
 class AppComponent extends React.Component {
-    state = {
-        activePage: 'books',
-        objectId: '',
-    };
-
     onMenuSelect = (activeMenu) => {
-        console.log(activeMenu);
         this.props.selectPage(activeMenu);
-    };
-
-    // todo: dispatch actions instead of setState
-    onAuthorDetailsSelect = objectId => {
-        console.log(`selected author id=${ objectId }`);
-        this.setState({
-            activePage: 'authorDetails',
-            objectId,
-        });
-    };
-
-    // todo: dispatch actions instead of setState
-    onBookDetailsSelect = bookId => {
-        console.log(`selected book id=${ bookId }`);
-        this.setState({
-            activePage: 'bookDetails',
-            objectId: bookId,
-        });
     };
 
     render() {
         let page = null;
 
         switch (this.props.activePage) {
-            case 'books':
-                page = <BookPage bookList={ BOOK_LIST } onBookDetailsOpen={ this.onBookDetailsSelect } onAuthorDetailsOpen={ this.onAuthorDetailsSelect }/>;
+            case BOOKS_PAGE:
+                page = <BookPage bookList={ BOOK_LIST } />;
                 break;
-            case 'authors':
+            case AUTHORS_PAGE:
                 page = <AuthorsPage/>;
                 break;
-            case 'genres':
+            case GENRES_PAGE:
                 page = <GenresPage/>;
                 break;
-            case 'bookDetails':
-                page = <BookDetailsPage book={ BOOK_LIST.find(book => book.id === this.state.objectId) }/>;
+            case BOOK_DETAILS_PAGE:
+                page = <BookDetailsPage book={ BOOK_LIST.find(book => book.id === this.props.entityId) }/>;
                 break;
         }
 
@@ -70,6 +47,7 @@ class AppComponent extends React.Component {
 
 const mapStateToProps = state => ({
     activePage: state.routing.activePage,
+    entityId: state.routing.entityId,
 });
 
 const mapDispatchToProps = dispatch => ({
