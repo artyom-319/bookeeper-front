@@ -51,15 +51,12 @@ class BookComponent extends React.Component {
 
 BookComponent.propTypes = {
     id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    author: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-    }),
-    genre: PropTypes.string,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
+    title: state.book.list.objects[props.id].title,
+    author: state.book.list.objects[props.id].author,
+    genre: state.book.list.objects[props.id].genre,
 });
 
 const mapDispatchToProps = dispatch => ({

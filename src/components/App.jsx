@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Layout from './Layout';
-import BookPage from './pages/BookPage';
+import BookPage from './pages/BooksPage';
 import AuthorsPage from './pages/AuthorsPage';
 import GenresPage from './pages/GenresPage';
 import AuthorDetailsPage from './pages/AuthorDetailsPage';
 import BookDetailsPage from './pages/BookDetailsPage';
 import selectPage from '../actions/routing';
-import { BOOK_LIST } from '../constants/mocked_objects';
 import { AUTHOR_DETAILS_PAGE, AUTHORS_PAGE, BOOK_DETAILS_PAGE, BOOKS_PAGE, GENRES_PAGE } from '../constants/pages';
+import urls from '../constants/urls';
 import '../styles/base.css';
 
 class AppComponent extends React.Component {
@@ -23,7 +23,7 @@ class AppComponent extends React.Component {
 
         switch (this.props.activePage) {
             case BOOKS_PAGE:
-                page = <BookPage bookList={ BOOK_LIST } />;
+                page = <BookPage booksFetchUrl={ urls.books }/>;
                 break;
             case AUTHORS_PAGE:
                 page = <AuthorsPage/>;
@@ -32,7 +32,7 @@ class AppComponent extends React.Component {
                 page = <GenresPage/>;
                 break;
             case BOOK_DETAILS_PAGE:
-                page = <BookDetailsPage book={ BOOK_LIST.find(book => book.id === this.props.entityId) }/>;
+                page = <BookDetailsPage id={ this.props.entityId }/>;
                 break;
             case AUTHOR_DETAILS_PAGE:
                 page = <AuthorDetailsPage id={ this.props.entityId }/>;

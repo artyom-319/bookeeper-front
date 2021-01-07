@@ -7,16 +7,10 @@ import Book from './Book';
 class BookListComponent extends React.Component {
 
     render() {
-        const books = this.props.bookList.map(
-            book =>
-                <ListGroup.Item>
-                    <Book
-                        key={ book.id }
-                        id={ book.id }
-                        title={ book.title }
-                        author={ book.author }
-                        genre={ book.genre }
-                    />
+        const books = this.props.objectIds.map(
+            bookId =>
+                <ListGroup.Item key={ `item_${ bookId }` }>
+                    <Book id={ bookId }/>
                 </ListGroup.Item>
         );
         return (
@@ -29,7 +23,7 @@ class BookListComponent extends React.Component {
 
 BookListComponent.propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    bookList: PropTypes.arrayOf(PropTypes.shape(Book.propTypes)),
+    objectIds: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default BookListComponent;

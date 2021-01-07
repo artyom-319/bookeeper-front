@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
 
 import authorReducer from './authors';
+import authorDetailsReducer from './author_details';
+import booksReducer from './books';
+import bookDetailsReducer from './book_details';
 import genreReducer from './genres';
 import routingReducer from './routing';
-import authorDetailsReducer from './author_details';
 
 export default function initReducers() {
     return combineReducers({
-        // todo: reducers
         routing: routingReducer,
-        // books: bookReducer,
+        book: combineReducers({
+            list: booksReducer,
+            details: bookDetailsReducer,
+        }),
         author:  combineReducers({
             list: authorReducer,
             details: authorDetailsReducer

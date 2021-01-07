@@ -18,7 +18,7 @@ class AuthorDetailsPageComponent extends React.Component {
         return (
             <Container>
                 <Row>
-                    { this.props.isLoading
+                    { this.props.isLoading || !this.props.author
                         ? <Spinner animation="border" />
                         : <AuthorDetails { ...this.props.author } /> }
                 </Row>

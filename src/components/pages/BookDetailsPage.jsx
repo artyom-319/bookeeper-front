@@ -1,35 +1,33 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Spinner } from 'react-bootstrap';
 
-import Book from "../book/Book";
-import BookDetails from "../book/BookDetails";
+import Book from '../book/Book';
+import BookDetails from '../book/BookDetails';
 import CommentList from '../comment/CommentList';
+import { loadBookDetails } from '../../actions/books';
+import urls from '../../constants/urls';
 
 class BookDetailsPageComponent extends React.Component {
-    state = {
-        commentList: [],
-        isLoading: false,
-        isModalOpen: false,
-    };
-
     componentDidMount() {
-        this.setState({ isLoading: true });
-        window.setTimeout(
-            () => this.setState({ commentList: this.props.book.comments, isLoading: false }),
-            500
-        );
+        const fetchBookUrl = `${ urls.books }/${ this.props.id }`;
+        this.props.loadBookDetails(fetchBookUrl);
     }
 
     render() {
         return (
             <Container>
                 <Row>
-                    <BookDetails { ...this.props.book } />
+                    { this.props.isLoading || !this.props.book
+                        ? <Spinner animation="border" />
+                        : <BookDetails { ...this.props.book } /> }
                 </Row>
                 <br/>
                 <Row>
-                    <CommentList isLoading={ this.state.isLoading } commentList={ this.props.book.comments }/>
+                    {/* todo: loading уровнем ниже */}
+                    {/*<CommentList isLoading={ this.state.isLoading } commentList={ this.props.book.comments }/>*/}
                 </Row>
             </Container>
         );
@@ -37,9 +35,16 @@ class BookDetailsPageComponent extends React.Component {
 }
 
 BookDetailsPageComponent.propTypes = {
-    book: PropTypes.shape(Book.propTypes).isRequired,
-    // onDetailsOpen: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool,
+    id: PropTypes.string.isRequired,
 };
 
-export default BookDetailsPageComponent;
+const mapStateToProps = state => ({
+    isLoading: state.book.details.isLoading,
+    book: state.book.details.instance,
+});
+
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ loadBookDetails }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookDetailsPageComponent);
