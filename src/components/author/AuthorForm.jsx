@@ -18,7 +18,6 @@ class AuthorFormComponent extends React.Component {
         e.preventDefault();
         console.log(this.state);
         this.props.createAuthor(urls.authors, JSON.stringify(this.state));
-        // todo: мб стэйт и не нужен
         this.setState(initialState);
     };
 

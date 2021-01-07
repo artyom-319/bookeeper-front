@@ -1,5 +1,7 @@
 import update from 'react-addons-update';
 import { LOAD_BOOKS, LOAD_BOOKS_ERROR, LOAD_BOOKS_SUCCESS } from '../actions/books';
+import { CLOSE_BOOK_MODAL, OPEN_BOOK_MODAL } from '../actions/books';
+import { CREATE_BOOK_SUCCESS } from '../actions/books';
 
 const initialState = {
     objectIds: [],
@@ -30,6 +32,22 @@ export default function booksReducer(store = initialState, action) {
             return update(store, {
                 isLoading: { $set: false },
             });
+
+        case CREATE_BOOK_SUCCESS:
+            console.log(action);
+            const createdBook = mapDtoToObject(action.payload);
+            return update(store, {
+                isModalOpen: { $set: false },
+                objectIds: { $unshift: [ action.payload.id ] },
+                objects: { $merge: { [createdBook.id]: createdBook }}
+            });
+
+        case OPEN_BOOK_MODAL:
+            return update(store, { isModalOpen: { $set: true } });
+
+        case CLOSE_BOOK_MODAL:
+            return update(store, { isModalOpen: { $set: false } });
+
         default:
             return store;
     }

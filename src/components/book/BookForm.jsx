@@ -1,32 +1,48 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Button, Form } from "react-bootstrap";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Button, Form } from 'react-bootstrap';
+
+import { loadAuthors } from '../../actions/authors';
+import { createBook } from '../../actions/books';
+import urls from '../../constants/urls';
+
 
 class BookFormComponent extends React.Component {
 
     state = {
         title: '',
-        author: {
-            id: '',
-            name: '',
-        },
-        genre: '',
-        authorName: '',
+        genreTitle: '',
+        authorId: '',
     };
 
     onCreate = e => {
         e.preventDefault();
         console.log(this.state);
-        this.state.author.name = this.state.authorName,
-        this.props.onCreate(this.state);
+        this.props.createBook(urls.books, JSON.stringify(this.state));
     };
 
     onChange = e => {
-        console.log(this.state);
         this.setState({
             [ e.target.name ]: e.target.value,
-        })
+        });
     };
+
+    componentDidMount() {
+        this.props.loadAuthors(urls.authors);
+    }
+
+    prepareOptions = () => {
+        const authorArray = Object.values(this.props.authors);
+        return authorArray.map(this.mapAuthorToOption);
+    };
+
+    mapAuthorToOption = author => (
+        <option key={ author.id }
+                value={ author.id }
+                selected={ author.id === this.state.authorId }
+        >{ author.name }</option>
+    );
 
     render() {
         return (
@@ -42,22 +58,23 @@ class BookFormComponent extends React.Component {
                             onChange={ this.onChange }
                         />
                     </Form.Group>
-                    <Form.Group className="b-form-field-wrapper">
+                    <Form.Group>
                         <Form.Control
-                            className="b-book-author-form-field"
-                            value={ this.state.authorName }
-                            type="text"
-                            name="authorName"
-                            placeholder="Author"
+                            as="select" custom
+                            name="authorId"
+                            value={ this.state.authorId }
                             onChange={ this.onChange }
-                        />
+                        >
+                            <option style={{ display: 'none' }}>Author</option>
+                            { this.prepareOptions() }
+                        </Form.Control>
                     </Form.Group>
                     <Form.Group className="b-form-field-wrapper">
                         <Form.Control
                             className="b-book-genre-form-field"
-                            value={ this.state.genre }
+                            value={ this.state.genreTitle }
                             type="text"
-                            name="genre"
+                            name="genreTitle"
                             placeholder="Genre"
                             onChange={ this.onChange }
                         />
@@ -69,8 +86,12 @@ class BookFormComponent extends React.Component {
     }
 }
 
-BookFormComponent.propTypes = {
-    onCreate: PropTypes.func.isRequired,
-};
+const mapStateToProps = state => ({
+    authors: state.author.list.objects,
+});
 
-export default BookFormComponent;
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ loadAuthors, createBook }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookFormComponent);

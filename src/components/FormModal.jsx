@@ -1,16 +1,11 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { Modal } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-
-// todo: вынести из автора
-import { closeModal } from '../actions/authors';
+import { Modal } from 'react-bootstrap';
 
 class FormModalComponent extends React.Component {
     render() {
         return (
-            <Modal show={ this.props.show } onHide={ this.props.closeModal }>
+            <Modal show={ this.props.show } onHide={ this.props.onClose }>
                 <Modal.Header closeButton>
                     <Modal.Title>{ this.props.title }</Modal.Title>
                 </Modal.Header>
@@ -24,15 +19,8 @@ class FormModalComponent extends React.Component {
 
 FormModalComponent.propTypes = {
     title: PropTypes.string.isRequired,
+    show: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
 };
 
-// todo: вынести из FormModal в родительский
-const mapStateToProps = state => ({
-    show: state.author.list.isModalOpen,
-});
-
-const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ closeModal }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FormModalComponent);
+export default FormModalComponent;

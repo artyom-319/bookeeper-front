@@ -8,6 +8,13 @@ export const LOAD_BOOK_DETAILS = 'LOAD_BOOK_DETAILS';
 export const LOAD_BOOK_DETAILS_SUCCESS = 'LOAD_BOOK_DETAILS_SUCCESS';
 export const LOAD_BOOK_DETAILS_ERROR = 'LOAD_BOOK_DETAILS_ERROR';
 
+export const CREATE_BOOK = 'CREATE_BOOK';
+export const CREATE_BOOK_SUCCESS = 'CREATE_BOOK_SUCCESS';
+export const CREATE_BOOK_ERROR = 'CREATE_BOOK_ERROR';
+
+export const OPEN_BOOK_MODAL = 'OPEN_BOOK_MODAL';
+export const CLOSE_BOOK_MODAL = 'CLOSE_BOOK_MODAL';
+
 export const loadBooks = url => {
     return createAction({
         endpoint: url,
@@ -31,3 +38,27 @@ export const loadBookDetails = url => (
         ],
     })
 );
+
+export const createBook = (url, data) => {
+    return createAction({
+        endpoint: url,
+        method: 'POST',
+        body: data,
+        headers: {
+            'content-type': 'application/json',
+        },
+        types: [
+            CREATE_BOOK,
+            CREATE_BOOK_SUCCESS,
+            CREATE_BOOK_ERROR,
+        ],
+    });
+};
+
+export const openModal = () => ({
+    type: OPEN_BOOK_MODAL,
+});
+
+export const closeModal = () => ({
+    type: CLOSE_BOOK_MODAL,
+});

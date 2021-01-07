@@ -7,30 +7,9 @@ import FormModal from '../FormModal';
 import BookList from '../book/BookList';
 import BookForm from '../book/BookForm';
 import PropTypes from 'prop-types';
-import { loadBooks } from '../../actions/books';
+import { loadBooks, openModal, closeModal } from '../../actions/books';
 
 class BooksPageComponent extends React.Component {
-    onClick = () => {
-        console.log("'new' clicked");
-        // this.setState({
-        //     isModalOpen: true,
-        // });
-    };
-
-    onBookCreate = book => {
-        console.log(book);
-        // this.setState({
-        //     bookList: [ book, ...this.state.bookList ],
-        //     isModalOpen: false,
-        // });
-    };
-
-    onModalClose = () => {
-        // this.setState({
-        //     isModalOpen: false,
-        // });
-    };
-
     componentDidMount() {
         this.props.loadBooks(this.props.booksFetchUrl);
     }
@@ -40,15 +19,15 @@ class BooksPageComponent extends React.Component {
             <div className="b-book-container">
                 <div className="row g-2">
                     <span className="large col-11" >Book Collection</span>
-                    <a href="#" onClick={ this.onClick } >new</a>
+                    <a href="#" onClick={ this.props.openModal } >new</a>
                 </div>
                 <br/>
                 <BookList
                     isLoading={ this.props.isLoading }
                     objectIds={ this.props.objectIds }
                 />
-                <FormModal title="New Book" show={ this.props.isModalOpen } handleClose={ this.onModalClose }>
-                    <BookForm onCreate={ this.onBookCreate }/>
+                <FormModal title="New Book" show={ this.props.isModalOpen } onClose={ this.props.closeModal }>
+                    <BookForm/>
                 </FormModal>
             </div>
         );
@@ -66,7 +45,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ loadBooks }, dispatch),
+    ...bindActionCreators({ loadBooks, openModal, closeModal }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksPageComponent);

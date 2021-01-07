@@ -6,24 +6,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FormModal from '../FormModal';
 import AuthorList from '../author/AuthorList';
 import AuthorForm from '../author/AuthorForm';
-import { openModal } from '../../actions/authors';
+import { openModal, closeModal } from '../../actions/authors';
 
 
 class AuthorsPageComponent extends React.Component {
-    onClick = () => {
-        this.props.openModal();
-    };
-
     render() {
         return (
             <div className="b-author-container">
                 <div className="row g-2">
                     <span className="large col-11" >Authors</span>
-                    <a href="#" onClick={ this.onClick } >new</a>
+                    <a href="#" onClick={ this.props.openModal } >new</a>
                 </div>
                 <br/>
                 <AuthorList/>
-                <FormModal title="New Author">
+                <FormModal title="New Author" show={ this.props.isModalOpen } onClose={ this.props.closeModal }>
                     <AuthorForm/>
                 </FormModal>
             </div>
@@ -32,10 +28,11 @@ class AuthorsPageComponent extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    isModalOpen: state.author.list.isModalOpen,
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ openModal }, dispatch),
+    ...bindActionCreators({ openModal, closeModal }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorsPageComponent);
