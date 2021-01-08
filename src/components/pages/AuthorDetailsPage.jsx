@@ -7,6 +7,7 @@ import { Container, Row, Spinner } from 'react-bootstrap';
 import AuthorDetails from '../author/AuthorDetails';
 import { loadAuthorDetails, deleteAuthor } from '../../actions/authors';
 import urls from '../../constants/urls';
+import BookList from '../book/BookList';
 
 class AuthorDetailsPageComponent extends React.Component {
     deleteAuthor = () => {
@@ -20,18 +21,20 @@ class AuthorDetailsPageComponent extends React.Component {
     }
 
     render() {
+        const booksUrl = `${ urls.authors }/${ this.props.id }/books`;
         return (
+            this.props.isLoading || !this.props.author ? <Spinner animation="border" /> : (
             <Container>
                 <Row>
-                    { this.props.isLoading || !this.props.author
-                        ? <Spinner animation="border" />
-                        : <AuthorDetails { ...this.props.author } onDelete={ this.deleteAuthor } /> }
+                    <AuthorDetails { ...this.props.author } onDelete={ this.deleteAuthor } />
                 </Row>
                 <br/>
-                <Row>
-                    {/* todo: book list */}
-                </Row>
+                <Container>
+                    <h4>Books of { this.props.author.name }</h4>
+                    <BookList booksFetchUrl={ booksUrl }/>
+                </Container>
             </Container>
+            )
         );
     }
 }

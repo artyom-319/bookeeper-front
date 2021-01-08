@@ -15,8 +15,8 @@ class AuthorListComponent extends React.Component {
     render() {
         const authors = this.props.objectIds.map(
             authorId =>
-                <ListGroup.Item>
-                    <Author key={ authorId } id={ authorId } />
+                <ListGroup.Item key={ `item_${ authorId }` }>
+                    <Author id={ authorId } />
                 </ListGroup.Item>
         );
         return (

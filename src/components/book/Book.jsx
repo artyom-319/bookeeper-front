@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import selectPage from '../../actions/routing';
-import { BOOK_DETAILS_PAGE, AUTHOR_DETAILS_PAGE } from '../../constants/pages';
+import { BOOK_DETAILS_PAGE, AUTHOR_DETAILS_PAGE, GENRE_BOOKS_PAGE } from '../../constants/pages';
 import '../../styles/base.css';
 
 class BookComponent extends React.Component {
@@ -17,12 +17,18 @@ class BookComponent extends React.Component {
         this.props.selectPage(AUTHOR_DETAILS_PAGE, this.props.author.id);
     };
 
+    onGenreSelect = () => {
+        this.props.selectPage(GENRE_BOOKS_PAGE, this.props.genre);
+    };
+
     render() {
         let genre = null;
         if (this.props.genre) {
             genre =
                 <a className="text-secondary pre-small"
-                   href={ `/genres/${ this.props.genre }/books`}>
+                   // href=""
+                   onClick={ this.onGenreSelect }
+                >
                     { this.props.genre }
                 </a>;
         }

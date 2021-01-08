@@ -7,13 +7,9 @@ import FormModal from '../FormModal';
 import BookList from '../book/BookList';
 import BookForm from '../book/BookForm';
 import PropTypes from 'prop-types';
-import { loadBooks, openModal, closeModal } from '../../actions/books';
+import { openModal, closeModal } from '../../actions/books';
 
 class BooksPageComponent extends React.Component {
-    componentDidMount() {
-        this.props.loadBooks(this.props.booksFetchUrl);
-    }
-
     render() {
         return (
             <div className="b-book-container">
@@ -25,8 +21,7 @@ class BooksPageComponent extends React.Component {
                 </div>
                 <br/>
                 <BookList
-                    isLoading={ this.props.isLoading }
-                    objectIds={ this.props.objectIds }
+                    booksFetchUrl={ this.props.booksFetchUrl }
                 />
                 <FormModal title="New Book" show={ this.props.isModalOpen } onClose={ this.props.closeModal }>
                     <BookForm/>
@@ -42,13 +37,11 @@ BooksPageComponent.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    isLoading: state.book.list.isLoading,
     isModalOpen: state.book.list.isModalOpen,
-    objectIds: state.book.list.objectIds,
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ loadBooks, openModal, closeModal }, dispatch),
+    ...bindActionCreators({ openModal, closeModal }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksPageComponent);

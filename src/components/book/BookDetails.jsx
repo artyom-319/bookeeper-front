@@ -1,10 +1,34 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Card, Col, Row } from 'react-bootstrap';
 
+import selectPage from '../../actions/routing';
+import { AUTHOR_DETAILS_PAGE, GENRE_BOOKS_PAGE } from '../../constants/pages';
+
 class BookDetailsComponent extends React.Component {
+    onAuthorSelect = () => {
+        this.props.selectPage(AUTHOR_DETAILS_PAGE, this.props.author.id);
+    };
+
+    onGenreSelect = () => {
+        this.props.selectPage(GENRE_BOOKS_PAGE, this.props.genre);
+    };
 
     render() {
+        let genreRow = null;
+        if (this.props.genre) {
+            genreRow =
+                <Row className="row">
+                    <Col>
+                        <small className="text-primary" onClick={ this.onGenreSelect }>
+                            [{ this.props.genre }]
+                        </small>
+                        <br/>
+                    </Col>
+                </Row>;
+        }
         return (
             <Card body className="col-md-12">
                 <Row className="row">
@@ -20,16 +44,13 @@ class BookDetailsComponent extends React.Component {
                 </Row>
                 <Row className="row">
                     <Col>
-                        <a className="text-secondary text-decoration-none">{ this.props.author.name }</a>
+                        <a className="text-secondary text-decoration-none" onClick={ this.onAuthorSelect }>
+                            { this.props.author.name }
+                        </a>
                     </Col>
                 </Row>
                 <br/>
-                <Row className="row">
-                    <Col>
-                        <small className="text-primary">[{ this.props.genre }]</small>
-                        <br/>
-                    </Col>
-                </Row>
+                { genreRow }
             </Card>
         );
     }
@@ -46,4 +67,11 @@ BookDetailsComponent.propTypes = {
     onDelete: PropTypes.func,
 };
 
-export default BookDetailsComponent;
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ selectPage }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookDetailsComponent);

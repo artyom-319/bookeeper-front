@@ -15,8 +15,8 @@ class GenreListComponent extends React.Component {
     render() {
         const genres = this.props.genreTitles.map(
             genreTitle =>
-                <ListGroup.Item>
-                    <Genre key={ genreTitle } title={ genreTitle } />
+                <ListGroup.Item key={ `item_${ genreTitle }` }>
+                    <Genre title={ genreTitle } />
                 </ListGroup.Item>
         );
         return (
