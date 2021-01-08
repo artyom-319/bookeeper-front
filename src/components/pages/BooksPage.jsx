@@ -18,7 +18,9 @@ class BooksPageComponent extends React.Component {
         return (
             <div className="b-book-container">
                 <div className="row g-2">
-                    <span className="large col-11" >Book Collection</span>
+                    <span className="large col-11" >
+                        { this.props.pageTitle ? this.props.pageTitle : "Book Collection" }
+                    </span>
                     <a href="#" onClick={ this.props.openModal } >new</a>
                 </div>
                 <br/>
@@ -35,6 +37,7 @@ class BooksPageComponent extends React.Component {
 }
 
 BooksPageComponent.propTypes = {
+    pageTitle: PropTypes.string,
     booksFetchUrl: PropTypes.string,
 };
 
