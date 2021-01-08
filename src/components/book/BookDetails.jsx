@@ -36,7 +36,7 @@ class BookDetailsComponent extends React.Component {
                         <b>{ this.props.title }</b>
                     </Col>
                     <Col className="col-1">
-                        <a className="text-decoration-none" href="#">edit</a>
+                        <a onClick={ this.props.onEdit } className="text-decoration-none" href="#">edit</a>
                     </Col>
                     <Col className="col-2">
                         <a onSelect={ this.props.onDelete } onClick={ this.props.onDelete } className="text-danger" href="#">delete</a>
@@ -65,6 +65,7 @@ BookDetailsComponent.propTypes = {
     }),
     genre: PropTypes.string,
     onDelete: PropTypes.func,
+    onEdit: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

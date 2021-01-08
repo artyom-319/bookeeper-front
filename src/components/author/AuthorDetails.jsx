@@ -11,7 +11,7 @@ class AuthorDetailsComponent extends React.Component {
                         <b>{ this.props.name }</b>
                     </Col>
                     <Col className="col-1">
-                        <a className="text-decoration-none" href="#">edit</a>
+                        <a onClick={ this.props.onEdit } className="text-decoration-none" href="#">edit</a>
                     </Col>
                     <Col className="col-2">
                         <a onSelect={ this.props.onDelete } onClick={ this.props.onDelete } className="text-danger" href="#">delete</a>
@@ -33,6 +33,7 @@ AuthorDetailsComponent.propTypes = {
     name: PropTypes.string.isRequired,
     country: PropTypes.string,
     onDelete: PropTypes.func,
+    onEdit: PropTypes.func,
 };
 
 export default AuthorDetailsComponent;

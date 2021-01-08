@@ -16,8 +16,14 @@ export const DELETE_AUTHOR = 'DELETE_AUTHOR';
 export const DELETE_AUTHOR_SUCCESS = 'DELETE_AUTHOR_SUCCESS';
 export const DELETE_AUTHOR_ERROR = 'DELETE_AUTHOR_ERROR';
 
+export const UPDATE_AUTHOR = 'UPDATE_AUTHOR';
+export const UPDATE_AUTHOR_SUCCESS = 'UPDATE_AUTHOR_SUCCESS';
+export const UPDATE_AUTHOR_ERROR = 'UPDATE_AUTHOR_ERROR';
+
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
+export const OPEN_AUTHOR_EDIT_MODE = 'OPEN_AUTHOR_EDIT_MODE';
+export const CLOSE_AUTHOR_EDIT_MODE = 'CLOSE_AUTHOR_EDIT_MODE';
 
 export const loadAuthors = (url) => {
     return createAction({
@@ -76,10 +82,34 @@ export const deleteAuthor = (url, entityId) => {
     });
 };
 
+export const updateAuthor = (url, data) => (
+    createAction({
+        endpoint: url,
+        method: 'PUT',
+        body: data,
+        headers: {
+            'content-type': 'application/json',
+        },
+        types: [
+            UPDATE_AUTHOR,
+            UPDATE_AUTHOR_SUCCESS,
+            UPDATE_AUTHOR_ERROR,
+        ],
+    })
+);
+
 export const openModal = () => ({
     type: OPEN_MODAL,
 });
 
 export const closeModal = () => ({
     type: CLOSE_MODAL,
+});
+
+export const openEditMode = () => ({
+    type: OPEN_AUTHOR_EDIT_MODE,
+});
+
+export const closeEditMode = () => ({
+    type: CLOSE_AUTHOR_EDIT_MODE,
 });

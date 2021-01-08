@@ -1,10 +1,6 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
-
-import { createAuthor } from '../../actions/authors';
-import urls from '../../constants/urls';
 
 const initialState = {
     name: '',
@@ -14,10 +10,21 @@ const initialState = {
 class AuthorFormComponent extends React.Component {
     state = initialState;
 
-    onCreate = e => {
+    constructor(props) {
+        super(props);
+        if (props.name) {
+            this.state = {
+                id: props.id,
+                name: props.name,
+                country: props.country,
+            };
+        }
+    }
+
+    onSubmit = e => {
         e.preventDefault();
         console.log(this.state);
-        this.props.createAuthor(urls.authors, JSON.stringify(this.state));
+        this.props.onSubmit(JSON.stringify(this.state));
         this.setState(initialState);
     };
 
@@ -28,6 +35,9 @@ class AuthorFormComponent extends React.Component {
     };
 
     render() {
+        const cancelButton = this.props.onCancel
+            ? <Button className="btn btn-primary mb-3" variant='light' onClick={ this.props.onCancel }>Cancel</Button>
+            : null;
         return (
             <Form>
                 <Form.Group className="b-form-field-wrapper">
@@ -50,17 +60,19 @@ class AuthorFormComponent extends React.Component {
                         onChange={ this.onChange }
                     />
                 </Form.Group>
-                <Button className="btn btn-primary mb-3" onClick={ this.onCreate }>Создать</Button>
+                <Button className="btn btn-primary mb-3" onClick={ this.onSubmit }>Save</Button>
+                { cancelButton }
             </Form>
         );
     }
 }
 
-const mapStateToProps = state => ({
-});
+AuthorFormComponent.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    country: PropTypes.string,
+    onSubmit: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
+};
 
-const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ createAuthor }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AuthorFormComponent);
+export default AuthorFormComponent;

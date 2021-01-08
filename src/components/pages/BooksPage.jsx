@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,10 +7,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import FormModal from '../FormModal';
 import BookList from '../book/BookList';
 import BookForm from '../book/BookForm';
-import PropTypes from 'prop-types';
-import { openModal, closeModal } from '../../actions/books';
+import { openModal, closeModal, createBook } from '../../actions/books';
+import urls from '../../constants/urls';
 
 class BooksPageComponent extends React.Component {
+    createBook = data => {
+        this.props.createBook(urls.books, data);
+    };
+
     render() {
         return (
             <div className="b-book-container">
@@ -24,7 +29,7 @@ class BooksPageComponent extends React.Component {
                     booksFetchUrl={ this.props.booksFetchUrl }
                 />
                 <FormModal title="New Book" show={ this.props.isModalOpen } onClose={ this.props.closeModal }>
-                    <BookForm/>
+                    <BookForm onSubmit={ this.createBook }/>
                 </FormModal>
             </div>
         );
@@ -41,7 +46,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ openModal, closeModal }, dispatch),
+    ...bindActionCreators({ openModal, closeModal, createBook }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksPageComponent);

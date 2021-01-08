@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
@@ -8,18 +9,31 @@ import { createBook } from '../../actions/books';
 import urls from '../../constants/urls';
 
 
+const initialState = {
+    title: '',
+    genreTitle: '',
+    authorId: '',
+};
+
 class BookFormComponent extends React.Component {
+    state = initialState;
 
-    state = {
-        title: '',
-        genreTitle: '',
-        authorId: '',
-    };
+    constructor(props) {
+        super(props);
+        if (props.id) {
+            this.state = {
+                id: props.id,
+                title: props.title,
+                genreTitle: props.genre,
+                authorId: props.author ? props.author.id : '',
+            };
+        }
+    }
 
-    onCreate = e => {
+    onSubmit = e => {
         e.preventDefault();
         console.log(this.state);
-        this.props.createBook(urls.books, JSON.stringify(this.state));
+        this.props.onSubmit(JSON.stringify(this.state));
     };
 
     onChange = e => {
@@ -45,6 +59,9 @@ class BookFormComponent extends React.Component {
     );
 
     render() {
+        const cancelButton = this.props.onCancel
+            ? <Button className="btn btn-primary mb-3" variant='light' onClick={ this.props.onCancel }>Cancel</Button>
+            : null;
         return (
             <div className="b-book-form-wrapper">
                 <Form>
@@ -79,12 +96,22 @@ class BookFormComponent extends React.Component {
                             onChange={ this.onChange }
                         />
                     </Form.Group>
-                    <Button className="btn btn-primary mb-3" onClick={ this.onCreate }>Создать</Button>
+                    <Button className="btn btn-primary mb-3" onClick={ this.onSubmit }>Save</Button>
+                    { cancelButton }
                 </Form>
             </div>
         );
     }
 }
+
+BookFormComponent.propTypes = {
+    id: PropTypes.string,
+    title: PropTypes.string,
+    genreTitle: PropTypes.string,
+    authorId: PropTypes.string,
+    onSubmit: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
+};
 
 const mapStateToProps = state => ({
     authors: state.author.list.objects,

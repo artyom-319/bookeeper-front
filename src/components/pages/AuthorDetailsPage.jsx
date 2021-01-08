@@ -2,17 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Container, Row, Spinner } from 'react-bootstrap';
+import { Card, Container, Row, Spinner } from 'react-bootstrap';
 
 import AuthorDetails from '../author/AuthorDetails';
-import { loadAuthorDetails, deleteAuthor } from '../../actions/authors';
+import { loadAuthorDetails, deleteAuthor, updateAuthor, openEditMode, closeEditMode } from '../../actions/authors';
 import urls from '../../constants/urls';
 import BookList from '../book/BookList';
+import AuthorForm from '../author/AuthorForm';
 
 class AuthorDetailsPageComponent extends React.Component {
+    openEditMode = () => {
+        this.props.openEditMode();
+    };
+
+    closeEditMode = () => {
+        this.props.closeEditMode();
+    };
+
     deleteAuthor = () => {
         const url = `${ urls.authors }/${ this.props.id }`;
         this.props.deleteAuthor(url, this.props.id);
+    };
+
+    updateAuthor = data => {
+        this.props.updateAuthor(urls.authors, data);
     };
 
     componentDidMount() {
@@ -26,7 +39,12 @@ class AuthorDetailsPageComponent extends React.Component {
             this.props.isLoading || !this.props.author ? <Spinner animation="border" /> : (
             <Container>
                 <Row>
-                    <AuthorDetails { ...this.props.author } onDelete={ this.deleteAuthor } />
+                    { this.props.editModeEnabled
+                        ? (<Card.Body>
+                            <AuthorForm { ...this.props.author } onSubmit={ this.updateAuthor } onCancel={ this.closeEditMode } />
+                        </Card.Body>)
+                        : <AuthorDetails { ...this.props.author } onEdit={ this.openEditMode } onDelete={ this.deleteAuthor } />
+                    }
                 </Row>
                 <br/>
                 <Container>
@@ -46,10 +64,13 @@ AuthorDetailsPageComponent.propTypes = {
 const mapStateToProps = state => ({
     isLoading: state.author.details.isLoading,
     author: state.author.details.instance,
+    editModeEnabled: state.author.details.editModeEnabled,
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ loadAuthorDetails, deleteAuthor }, dispatch),
+    ...bindActionCreators({
+        loadAuthorDetails, deleteAuthor, openEditMode, closeEditMode, updateAuthor,
+    }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorDetailsPageComponent);
