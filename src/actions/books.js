@@ -16,6 +16,10 @@ export const DELETE_BOOK = 'DELETE_BOOK';
 export const DELETE_BOOK_SUCCESS = 'DELETE_BOOK_SUCCESS';
 export const DELETE_BOOK_ERROR = 'DELETE_BOOK_ERROR';
 
+export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const CREATE_COMMENT_SUCCESS = 'CREATE_COMMENT_SUCCESS';
+export const CREATE_COMMENT_ERROR = 'CREATE_COMMENT_ERROR';
+
 export const OPEN_BOOK_MODAL = 'OPEN_BOOK_MODAL';
 export const CLOSE_BOOK_MODAL = 'CLOSE_BOOK_MODAL';
 
@@ -75,6 +79,22 @@ export const deleteBook = (url, entityId) => {
         ],
     });
 };
+
+export const createComment = (url, data) => (
+    createAction({
+        endpoint: url,
+        method: 'POST',
+        body: data,
+        headers: {
+            'content-type': 'application/json',
+        },
+        types: [
+            CREATE_COMMENT,
+            CREATE_COMMENT_SUCCESS,
+            CREATE_COMMENT_ERROR,
+        ],
+    })
+);
 
 export const openModal = () => ({
     type: OPEN_BOOK_MODAL,

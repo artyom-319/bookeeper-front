@@ -14,6 +14,7 @@ class CommentListComponent extends React.Component {
         );
         return (
             <div className="col-md-12 b-author-list-container">
+                <h5>Comments</h5>
                 { this.props.isLoading ? <Spinner animation="border" /> : <ListGroup>{ comments }</ListGroup> }
             </div>
         );

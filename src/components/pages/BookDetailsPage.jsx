@@ -2,12 +2,13 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Container, Row, Spinner } from 'react-bootstrap';
+import { Card, Container, Row, Spinner } from 'react-bootstrap';
 
 import BookDetails from '../book/BookDetails';
 import CommentList from '../comment/CommentList';
 import { loadBookDetails, deleteBook } from '../../actions/books';
 import urls from '../../constants/urls';
+import CommentForm from '../comment/CommentForm';
 
 class BookDetailsPageComponent extends React.Component {
     deleteBook = () => {
@@ -32,6 +33,13 @@ class BookDetailsPageComponent extends React.Component {
                 <Row>
                     <CommentList isLoading={ this.props.isLoading } commentIds={ this.props.commentIds }/>
                 </Row>
+                <br/>
+                <Card>
+                    <Card.Header>Leave a comment:</Card.Header>
+                    <Card.Body>
+                        <CommentForm bookId={ this.props.id }/>
+                    </Card.Body>
+                </Card>
             </Container>
         );
     }
