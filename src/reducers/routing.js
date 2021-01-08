@@ -1,8 +1,8 @@
 import { SELECT_PAGE } from '../actions/routing';
-import { BOOKS_PAGE } from '../constants/pages';
+import { MAIN_PAGE } from '../constants/pages';
 
 const initialStore = {
-    activePage: BOOKS_PAGE,
+    activePage: MAIN_PAGE,
     entityId: null,
 };
 
