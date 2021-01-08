@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListGroup, Spinner } from "react-bootstrap";
+import { ListGroup, Spinner } from 'react-bootstrap';
 
-import Comment from "./Comment";
+import Comment from './Comment';
 
 class CommentListComponent extends React.Component {
     render() {
-        const comments = this.props.commentList.map(
-            comment =>
-                <ListGroup.Item>
-                    <Comment key={ comment.id } id={ comment.id } text={ comment.text } commenter={ comment.commenter } />
+        const comments = this.props.commentIds.map(
+            commentId =>
+                <ListGroup.Item key={ `item_${ commentId }` }>
+                    <Comment id={ commentId } />
                 </ListGroup.Item>
         );
         return (
@@ -22,7 +22,7 @@ class CommentListComponent extends React.Component {
 
 CommentListComponent.propTypes = {
     isLoading: PropTypes.bool.isRequired,
-    commentList: PropTypes.arrayOf(PropTypes.shape(Comment.propTypes)),
+    commentIds: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default CommentListComponent;

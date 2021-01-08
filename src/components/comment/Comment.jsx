@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Row, Col } from "react-bootstrap";
+import { Row, Col } from 'react-bootstrap';
 
 import '../../styles/base.css';
+
 
 class CommentComponent extends React.Component {
     render() {
@@ -27,8 +29,11 @@ class CommentComponent extends React.Component {
 
 CommentComponent.propTypes = {
     id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    commenter: PropTypes.string.isRequired,
 };
 
-export default CommentComponent;
+const mapStateToProps = (state, props) => ({
+    text: state.book.details.commentObjects[props.id].text,
+    commenter: state.book.details.commentObjects[props.id].commenter,
+});
+
+export default connect(mapStateToProps)(CommentComponent);

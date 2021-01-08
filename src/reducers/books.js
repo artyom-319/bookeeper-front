@@ -73,5 +73,6 @@ export const mapDtoToObject = bookDto => {
             name: bookDto.authorName,
         },
         genre: bookDto.genreTitle,
+        comments: bookDto.comments,
     };
 };

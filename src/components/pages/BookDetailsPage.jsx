@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Container, Row, Spinner } from 'react-bootstrap';
 
-import Book from '../book/Book';
 import BookDetails from '../book/BookDetails';
 import CommentList from '../comment/CommentList';
 import { loadBookDetails, deleteBook } from '../../actions/books';
 import urls from '../../constants/urls';
 
 class BookDetailsPageComponent extends React.Component {
-
     deleteBook = () => {
         const url = `${ urls.books }/${ this.props.id }`;
         this.props.deleteBook(url, this.props.id);
@@ -32,8 +30,7 @@ class BookDetailsPageComponent extends React.Component {
                 </Row>
                 <br/>
                 <Row>
-                    {/* todo: loading уровнем ниже */}
-                    {/*<CommentList isLoading={ this.state.isLoading } commentList={ this.props.book.comments }/>*/}
+                    <CommentList isLoading={ this.props.isLoading } commentIds={ this.props.commentIds }/>
                 </Row>
             </Container>
         );
@@ -47,6 +44,7 @@ BookDetailsPageComponent.propTypes = {
 const mapStateToProps = state => ({
     isLoading: state.book.details.isLoading,
     book: state.book.details.instance,
+    commentIds: state.book.details.commentIds,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -6,6 +6,8 @@ import { LOAD_BOOK_DETAILS, LOAD_BOOK_DETAILS_ERROR, LOAD_BOOK_DETAILS_SUCCESS }
 const initialState = {
     isLoading: false,
     instance: null,
+    commentIds: [],
+    commentObjects: {},
 };
 
 export default function bookDetailsReducer(store = initialState, action) {
@@ -16,9 +18,13 @@ export default function bookDetailsReducer(store = initialState, action) {
             });
         case LOAD_BOOK_DETAILS_SUCCESS:
             const book = mapDtoToObject(action.payload);
+            const commentObjects = book.comments.reduce((a, e) => ({...a, [e.id]: e}), {});
+            console.log(commentObjects);
             return update(store, {
                 isLoading: { $set: false },
                 instance: { $set: book },
+                commentIds: { $set: book.comments.map(e => e.id) },
+                commentObjects: { $merge: commentObjects },
             });
         case LOAD_BOOK_DETAILS_ERROR:
             return update(store, {
