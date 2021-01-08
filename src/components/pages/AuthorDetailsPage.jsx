@@ -5,10 +5,15 @@ import { connect } from 'react-redux';
 import { Container, Row, Spinner } from 'react-bootstrap';
 
 import AuthorDetails from '../author/AuthorDetails';
-import { loadAuthorDetails } from '../../actions/authors';
+import { loadAuthorDetails, deleteAuthor } from '../../actions/authors';
 import urls from '../../constants/urls';
 
 class AuthorDetailsPageComponent extends React.Component {
+    deleteAuthor = () => {
+        const url = `${ urls.authors }/${ this.props.id }`;
+        this.props.deleteAuthor(url, this.props.id);
+    };
+
     componentDidMount() {
         const url = `${ urls.authors }/${ this.props.id }`;
         this.props.loadAuthorDetails(url);
@@ -20,7 +25,7 @@ class AuthorDetailsPageComponent extends React.Component {
                 <Row>
                     { this.props.isLoading || !this.props.author
                         ? <Spinner animation="border" />
-                        : <AuthorDetails { ...this.props.author } /> }
+                        : <AuthorDetails { ...this.props.author } onDelete={ this.deleteAuthor } /> }
                 </Row>
                 <br/>
                 <Row>
@@ -41,7 +46,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ loadAuthorDetails }, dispatch),
+    ...bindActionCreators({ loadAuthorDetails, deleteAuthor }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorDetailsPageComponent);

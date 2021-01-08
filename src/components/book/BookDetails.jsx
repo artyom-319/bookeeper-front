@@ -15,7 +15,7 @@ class BookDetailsComponent extends React.Component {
                         <a className="text-decoration-none" href="#">edit</a>
                     </Col>
                     <Col className="col-2">
-                        <a className="text-danger" href="#">delete</a>
+                        <a onSelect={ this.props.onDelete } onClick={ this.props.onDelete } className="text-danger" href="#">delete</a>
                     </Col>
                 </Row>
                 <Row className="row">
@@ -43,6 +43,7 @@ BookDetailsComponent.propTypes = {
         name: PropTypes.string.isRequired,
     }),
     genre: PropTypes.string,
+    onDelete: PropTypes.func,
 };
 
 export default BookDetailsComponent;

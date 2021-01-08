@@ -1,5 +1,5 @@
 import update from 'react-addons-update';
-import { LOAD_BOOKS, LOAD_BOOKS_ERROR, LOAD_BOOKS_SUCCESS } from '../actions/books';
+import { DELETE_BOOK_SUCCESS, LOAD_BOOKS, LOAD_BOOKS_ERROR, LOAD_BOOKS_SUCCESS } from '../actions/books';
 import { CLOSE_BOOK_MODAL, OPEN_BOOK_MODAL } from '../actions/books';
 import { CREATE_BOOK_SUCCESS } from '../actions/books';
 
@@ -40,6 +40,17 @@ export default function booksReducer(store = initialState, action) {
                 isModalOpen: { $set: false },
                 objectIds: { $unshift: [ action.payload.id ] },
                 objects: { $merge: { [createdBook.id]: createdBook }}
+            });
+
+        case DELETE_BOOK_SUCCESS:
+            console.log(action);
+            const deletedId = action.meta.entityId;
+            const resultObjects = Object.keys(store.objects)
+                .filter( key => key !== deletedId )
+                .reduce((res, key) => (res[key] = store.objects[key], res), {});
+            return update(store, {
+                objectIds: { $splice:  [[ store.objectIds.indexOf(deletedId), 1 ]]},
+                objects: { $set: resultObjects }
             });
 
         case OPEN_BOOK_MODAL:

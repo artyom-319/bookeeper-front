@@ -1,4 +1,4 @@
-import { createAction } from 'redux-api-middleware';
+import { createAction, getJSON } from 'redux-api-middleware';
 
 export const LOAD_BOOKS = 'LOAD_BOOKS';
 export const LOAD_BOOKS_SUCCESS = 'LOAD_BOOKS_SUCCESS';
@@ -11,6 +11,10 @@ export const LOAD_BOOK_DETAILS_ERROR = 'LOAD_BOOK_DETAILS_ERROR';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const CREATE_BOOK_SUCCESS = 'CREATE_BOOK_SUCCESS';
 export const CREATE_BOOK_ERROR = 'CREATE_BOOK_ERROR';
+
+export const DELETE_BOOK = 'DELETE_BOOK';
+export const DELETE_BOOK_SUCCESS = 'DELETE_BOOK_SUCCESS';
+export const DELETE_BOOK_ERROR = 'DELETE_BOOK_ERROR';
 
 export const OPEN_BOOK_MODAL = 'OPEN_BOOK_MODAL';
 export const CLOSE_BOOK_MODAL = 'CLOSE_BOOK_MODAL';
@@ -51,6 +55,23 @@ export const createBook = (url, data) => {
             CREATE_BOOK,
             CREATE_BOOK_SUCCESS,
             CREATE_BOOK_ERROR,
+        ],
+    });
+};
+
+export const deleteBook = (url, entityId) => {
+    return createAction({
+        endpoint: url,
+        method: 'DELETE',
+        types: [
+            DELETE_BOOK,
+            {
+                type: DELETE_BOOK_SUCCESS,
+                meta: {
+                    entityId,
+                },
+            },
+            DELETE_BOOK_ERROR,
         ],
     });
 };

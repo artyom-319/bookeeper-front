@@ -12,6 +12,10 @@ export const LOAD_AUTHOR_DETAILS = 'LOAD_AUTHOR_DETAILS';
 export const LOAD_AUTHOR_DETAILS_SUCCESS = 'LOAD_AUTHOR_DETAILS_SUCCESS';
 export const LOAD_AUTHOR_DETAILS_ERROR = 'LOAD_AUTHOR_DETAILS_ERROR';
 
+export const DELETE_AUTHOR = 'DELETE_AUTHOR';
+export const DELETE_AUTHOR_SUCCESS = 'DELETE_AUTHOR_SUCCESS';
+export const DELETE_AUTHOR_ERROR = 'DELETE_AUTHOR_ERROR';
+
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 
@@ -51,6 +55,23 @@ export const loadAuthorDetails = url => {
             LOAD_AUTHOR_DETAILS,
             LOAD_AUTHOR_DETAILS_SUCCESS,
             LOAD_AUTHOR_DETAILS_ERROR,
+        ],
+    });
+};
+
+export const deleteAuthor = (url, entityId) => {
+    return createAction({
+        endpoint: url,
+        method: 'DELETE',
+        types: [
+            DELETE_AUTHOR,
+            {
+                type: DELETE_AUTHOR_SUCCESS,
+                meta: {
+                    entityId,
+                },
+            },
+            DELETE_AUTHOR_ERROR,
         ],
     });
 };

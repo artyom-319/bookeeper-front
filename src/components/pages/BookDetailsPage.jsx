@@ -7,10 +7,16 @@ import { Container, Row, Spinner } from 'react-bootstrap';
 import Book from '../book/Book';
 import BookDetails from '../book/BookDetails';
 import CommentList from '../comment/CommentList';
-import { loadBookDetails } from '../../actions/books';
+import { loadBookDetails, deleteBook } from '../../actions/books';
 import urls from '../../constants/urls';
 
 class BookDetailsPageComponent extends React.Component {
+
+    deleteBook = () => {
+        const url = `${ urls.books }/${ this.props.id }`;
+        this.props.deleteBook(url, this.props.id);
+    };
+
     componentDidMount() {
         const fetchBookUrl = `${ urls.books }/${ this.props.id }`;
         this.props.loadBookDetails(fetchBookUrl);
@@ -22,7 +28,7 @@ class BookDetailsPageComponent extends React.Component {
                 <Row>
                     { this.props.isLoading || !this.props.book
                         ? <Spinner animation="border" />
-                        : <BookDetails { ...this.props.book } /> }
+                        : <BookDetails { ...this.props.book } onDelete={ this.deleteBook } /> }
                 </Row>
                 <br/>
                 <Row>
@@ -44,7 +50,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ loadBookDetails }, dispatch)
+    ...bindActionCreators({ loadBookDetails, deleteBook }, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookDetailsPageComponent);

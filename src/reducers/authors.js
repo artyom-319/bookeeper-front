@@ -1,13 +1,9 @@
 import update from 'react-addons-update';
 
-import {
-    CREATE_AUTHOR_SUCCESS,
-    LOAD_AUTHORS,
-    LOAD_AUTHORS_ERROR,
-    LOAD_AUTHORS_SUCCESS,
-    OPEN_MODAL,
-    CLOSE_MODAL
-} from '../actions/authors';
+import { LOAD_AUTHORS, LOAD_AUTHORS_ERROR, LOAD_AUTHORS_SUCCESS } from '../actions/authors';
+import { OPEN_MODAL, CLOSE_MODAL } from '../actions/authors';
+import { CREATE_AUTHOR_SUCCESS } from '../actions/authors';
+import { DELETE_AUTHOR_SUCCESS } from '../actions/authors';
 
 const initialState = {
     objectIds: [],
@@ -42,6 +38,16 @@ export default function authorReducer(store = initialState, action) {
                 isModalOpen: { $set: false },
                 objectIds: { $unshift: [ action.payload.id ] },
                 objects: { $merge: { [action.payload.id]: action.payload }}
+            });
+        case DELETE_AUTHOR_SUCCESS:
+            console.log(action);
+            const deletedId = action.meta.entityId;
+            const resultObjects = Object.keys(store.objects)
+                .filter( key => key !== deletedId )
+                .reduce((res, key) => (res[key] = store.objects[key], res), {});
+            return update(store, {
+                objectIds: { $splice:  [[ store.objectIds.indexOf(deletedId), 1 ]]},
+                objects: { $set: resultObjects }
             });
         case OPEN_MODAL:
             return update(store, { isModalOpen: { $set: true } });
