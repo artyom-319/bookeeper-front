@@ -13,6 +13,12 @@ class AuthorListComponent extends React.Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return ( <div><Spinner animation="border" /></div> );
+        }
+        if (this.props.errorOccurred) {
+            return ( <div><h3>{ this.props.errorMessage }</h3></div> );
+        }
         const authors = this.props.objectIds.map(
             authorId =>
                 <ListGroup.Item key={ `item_${ authorId }` }>
@@ -21,7 +27,7 @@ class AuthorListComponent extends React.Component {
         );
         return (
             <div className="b-author-list-container">
-                { this.props.isLoading ? <Spinner animation="border" /> : <ListGroup>{ authors }</ListGroup> }
+                <ListGroup>{ authors }</ListGroup>
             </div>
         );
     }
@@ -30,6 +36,8 @@ class AuthorListComponent extends React.Component {
 const mapStateToProps = state => ({
     objectIds: state.author.list.objectIds,
     isLoading: state.author.list.isLoading,
+    errorOccurred: state.author.list.loadingError.occurred,
+    errorMessage: state.author.list.loadingError.message,
 });
 
 const mapDispatchToProps = dispatch => ({

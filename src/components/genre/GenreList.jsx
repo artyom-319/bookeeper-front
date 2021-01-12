@@ -13,6 +13,12 @@ class GenreListComponent extends React.Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return ( <div><Spinner animation="border" /></div> );
+        }
+        if (this.props.errorOccurred) {
+            return ( <div><h3>{ this.props.errorMessage }</h3></div> );
+        }
         const genres = this.props.genreTitles.map(
             genreTitle =>
                 <ListGroup.Item key={ `item_${ genreTitle }` }>
@@ -21,7 +27,7 @@ class GenreListComponent extends React.Component {
         );
         return (
             <div className="b-genre-list-container">
-                { this.props.isLoading ? <Spinner animation="border" /> : <ListGroup>{ genres }</ListGroup> }
+                <ListGroup>{ genres }</ListGroup>
             </div>
         );
     }
@@ -30,6 +36,8 @@ class GenreListComponent extends React.Component {
 const mapStateToProps = state => ({
     genreTitles: state.genres.genreTitles,
     isLoading: state.genres.isLoading,
+    errorOccurred: state.genres.errorOccurred,
+    errorMessage: state.genres.errorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({

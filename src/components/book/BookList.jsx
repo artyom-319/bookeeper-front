@@ -19,6 +19,12 @@ class BookListComponent extends React.Component {
     }
 
     render() {
+        if (this.props.isLoading) {
+            return ( <div><Spinner animation="border" /></div> );
+        }
+        if (this.props.errorOccurred) {
+            return ( <div><h3>{ this.props.errorMessage }</h3></div> );
+        }
         const books = this.props.objectIds.map(
             bookId =>
                 <ListGroup.Item key={ `item_${ bookId }` }>
@@ -27,7 +33,7 @@ class BookListComponent extends React.Component {
         );
         return (
             <div className="b-book-list-container">
-                { this.props.isLoading ? <Spinner animation="border" /> : <ListGroup>{ books }</ListGroup> }
+                <ListGroup>{ books }</ListGroup>
             </div>
         );
     }
@@ -41,6 +47,8 @@ BookListComponent.propTypes = {
 const mapStateToProps = state => ({
     isLoading: state.book.list.isLoading,
     objectIds: state.book.list.objectIds,
+    errorOccurred: state.book.list.errorOccurred,
+    errorMessage: state.book.list.errorMessage,
 });
 
 const mapDispatchToProps = dispatch => ({
