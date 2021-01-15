@@ -47,8 +47,8 @@ BookListComponent.propTypes = {
 const mapStateToProps = state => ({
     isLoading: state.book.list.isLoading,
     objectIds: state.book.list.objectIds,
-    errorOccurred: state.book.list.errorOccurred,
-    errorMessage: state.book.list.errorMessage,
+    errorOccurred: state.book.errors.plain.occurred,
+    errorMessage: state.book.errors.plain.message,
 });
 
 const mapDispatchToProps = dispatch => ({

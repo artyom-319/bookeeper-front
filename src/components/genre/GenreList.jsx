@@ -34,10 +34,10 @@ class GenreListComponent extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    genreTitles: state.genres.genreTitles,
-    isLoading: state.genres.isLoading,
-    errorOccurred: state.genres.errorOccurred,
-    errorMessage: state.genres.errorMessage,
+    genreTitles: state.genre.list.genreTitles,
+    isLoading: state.genre.list.isLoading,
+    errorOccurred: state.genre.errors.plain.occurred,
+    errorMessage: state.genre.errors.plain.message,
 });
 
 const mapDispatchToProps = dispatch => ({

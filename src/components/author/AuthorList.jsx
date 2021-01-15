@@ -36,8 +36,8 @@ class AuthorListComponent extends React.Component {
 const mapStateToProps = state => ({
     objectIds: state.author.list.objectIds,
     isLoading: state.author.list.isLoading,
-    errorOccurred: state.author.list.loadingError.occurred,
-    errorMessage: state.author.list.loadingError.message,
+    errorOccurred: state.author.errors.plain.occurred,
+    errorMessage: state.author.errors.plain.message,
 });
 
 const mapDispatchToProps = dispatch => ({

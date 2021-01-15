@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 const initialState = {
     name: '',
@@ -62,6 +63,7 @@ class AuthorFormComponent extends React.Component {
                 </Form.Group>
                 <Button className="btn btn-primary mb-3" onClick={ this.onSubmit }>Save</Button>
                 { cancelButton }
+                { this.props.errorOccurred ? <div className="alert-danger" >{ this.props.errorMessage }</div> : null }
             </Form>
         );
     }
@@ -75,4 +77,9 @@ AuthorFormComponent.propTypes = {
     onCancel: PropTypes.func,
 };
 
-export default AuthorFormComponent;
+const mapStateToProps = state => ({
+    errorOccurred: state.author.errors.form.occurred,
+    errorMessage: state.author.errors.form.message,
+});
+
+export default connect(mapStateToProps)(AuthorFormComponent);

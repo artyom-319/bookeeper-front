@@ -98,6 +98,7 @@ class BookFormComponent extends React.Component {
                     </Form.Group>
                     <Button className="btn btn-primary mb-3" onClick={ this.onSubmit }>Save</Button>
                     { cancelButton }
+                    { this.props.errorOccurred ? <div className="alert-danger" >{ this.props.errorMessage }</div> : null }
                 </Form>
             </div>
         );
@@ -115,6 +116,8 @@ BookFormComponent.propTypes = {
 
 const mapStateToProps = state => ({
     authors: state.author.list.objects,
+    errorOccurred: state.book.errors.form.occurred,
+    errorMessage: state.book.errors.form.message,
 });
 
 const mapDispatchToProps = dispatch => ({

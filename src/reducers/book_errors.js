@@ -1,7 +1,7 @@
 import update from 'react-addons-update';
 
-import { CREATE_AUTHOR_ERROR, LOAD_AUTHOR_DETAILS_ERROR } from '../actions/authors';
-import { LOAD_AUTHORS_ERROR, UPDATE_AUTHOR_ERROR } from '../actions/authors';
+import { CREATE_BOOK_ERROR, CREATE_COMMENT_ERROR } from '../actions/books';
+import { LOAD_BOOK_DETAILS_ERROR, LOAD_BOOKS_ERROR, UPDATE_BOOK_ERROR } from '../actions/books';
 
 
 const errorsInitialState = {
@@ -38,11 +38,12 @@ export default function errorsReducer(store = initialState, action) {
 };
 
 const PLAIN_PAGE_ERRORS = [
-    LOAD_AUTHORS_ERROR,
-    LOAD_AUTHOR_DETAILS_ERROR,
+    LOAD_BOOKS_ERROR,
+    LOAD_BOOK_DETAILS_ERROR,
 ];
 
 const FORM_ERRORS = [
-    CREATE_AUTHOR_ERROR,
-    UPDATE_AUTHOR_ERROR,
+    CREATE_BOOK_ERROR,
+    CREATE_COMMENT_ERROR,
+    UPDATE_BOOK_ERROR,
 ];
