@@ -1,7 +1,9 @@
+const urlPrefix = 'http://localhost:8081';
+
 const urls = {
-    authors: 'http://localhost:8081/api/authors',
-    books: 'http://localhost:8081/api/books',
-    genres: 'http://localhost:8081/api/genres',
+    authors: `${ urlPrefix }/api/authors`,
+    books: `${ urlPrefix }/api/books`,
+    genres: `${ urlPrefix }/api/genres`,
 }
 
 export default urls;
