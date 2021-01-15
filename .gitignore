@@ -1,5 +1,6 @@
 .idea/
 node_modules/
+# todo: исключить package-lock
 package-lock.json
 dist/
 *.iml
