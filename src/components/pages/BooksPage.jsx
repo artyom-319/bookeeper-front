@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import FormModal from '../FormModal';
+import FormModal from '../ModalWrapper';
 import BookList from '../book/BookList';
 import BookForm from '../book/BookForm';
 import { openModal, closeModal, createBook } from '../../actions/books';

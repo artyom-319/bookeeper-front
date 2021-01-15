@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 
-class FormModalComponent extends React.Component {
+class ModalWrapperComponent extends React.Component {
     render() {
         return (
             <Modal show={ this.props.show } onHide={ this.props.onClose }>
@@ -17,10 +17,10 @@ class FormModalComponent extends React.Component {
     }
 }
 
-FormModalComponent.propTypes = {
+ModalWrapperComponent.propTypes = {
     title: PropTypes.string.isRequired,
     show: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
 };
 
-export default FormModalComponent;
+export default ModalWrapperComponent;

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import FormModal from '../FormModal';
+import FormModal from '../ModalWrapper';
 import AuthorList from '../author/AuthorList';
 import AuthorForm from '../author/AuthorForm';
 import { openModal, closeModal, createAuthor } from '../../actions/authors';

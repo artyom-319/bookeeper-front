@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Nav, Navbar } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { closeErrorModal } from '../actions/errors';
 
 import { AUTHORS_PAGE, BOOKS_PAGE, GENRES_PAGE, MAIN_PAGE } from '../constants/pages';
+import ErrorModal from './ModalWrapper';
 
 class LayoutComponent extends React.Component {
     render() {
@@ -20,6 +24,13 @@ class LayoutComponent extends React.Component {
                 <div className="b-content">
                     { this.props.children }
                 </div>
+                <ErrorModal
+                    title="Error has occurred"
+                    show={ this.props.errorOccurred }
+                    onClose={ this.props.closeErrorModal }
+                >
+                    <div className="alert-danger">{ this.props.errorMessage }</div>
+                </ErrorModal>
             </div>
         );
     }
@@ -29,4 +40,13 @@ LayoutComponent.propTypes = {
     onSelect: PropTypes.func.isRequired,
 };
 
-export default LayoutComponent;
+const mapStateToProps = state => ({
+    errorOccurred: state.errors.modal.occurred,
+    errorMessage: state.errors.modal.message,
+});
+
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ closeErrorModal }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LayoutComponent);
