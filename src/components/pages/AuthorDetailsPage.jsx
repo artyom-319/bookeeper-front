@@ -34,9 +34,14 @@ class AuthorDetailsPageComponent extends React.Component {
     }
 
     render() {
+        if (this.props.errorOccurred) {
+            return ( <div><h3>{ this.props.errorMessage }</h3></div> );
+        }
+        if (this.props.isLoading || !this.props.author) {
+            return <div><Spinner animation="border" /></div>;
+        }
         const booksUrl = `${ urls.authors }/${ this.props.id }/books`;
         return (
-            this.props.isLoading || !this.props.author ? <Spinner animation="border" /> : (
             <Container>
                 <Row>
                     { this.props.editModeEnabled
@@ -52,7 +57,6 @@ class AuthorDetailsPageComponent extends React.Component {
                     <BookList booksFetchUrl={ booksUrl }/>
                 </Container>
             </Container>
-            )
         );
     }
 }
@@ -65,6 +69,8 @@ const mapStateToProps = state => ({
     isLoading: state.author.details.isLoading,
     author: state.author.details.instance,
     editModeEnabled: state.author.details.editModeEnabled,
+    errorOccurred: state.author.errors.plain.occurred,
+    errorMessage: state.author.errors.plain.message,
 });
 
 const mapDispatchToProps = dispatch => ({

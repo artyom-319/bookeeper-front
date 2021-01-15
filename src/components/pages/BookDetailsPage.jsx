@@ -35,7 +35,13 @@ class BookDetailsPageComponent extends React.Component {
     }
 
     render() {
-        return this.props.isLoading || !this.props.book ? <Spinner animation="border" /> : (
+        if (this.props.errorOccurred) {
+            return ( <div><h3>{ this.props.errorMessage }</h3></div> );
+        }
+        if (this.props.isLoading || !this.props.book) {
+            return <div><Spinner animation="border" /></div>;
+        }
+        return (
             <Container>
                 <Row>
                     { this.props.editModeEnabled ? (
@@ -69,6 +75,8 @@ const mapStateToProps = state => ({
     book: state.book.details.instance,
     commentIds: state.book.details.commentIds,
     editModeEnabled: state.book.details.editModeEnabled,
+    errorOccurred: state.book.errors.plain.occurred,
+    errorMessage: state.book.errors.plain.message,
 });
 
 const mapDispatchToProps = dispatch => ({
