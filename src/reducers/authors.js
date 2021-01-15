@@ -5,20 +5,12 @@ import { OPEN_MODAL, CLOSE_MODAL } from '../actions/authors';
 import { CREATE_AUTHOR_SUCCESS } from '../actions/authors';
 import { DELETE_AUTHOR_SUCCESS } from '../actions/authors';
 
-const errorsInitialState = {
-    occurred: false,
-    message: '',
-};
 
 const initialState = {
     objectIds: [],
     objects: {},
     isLoading: false,
     isModalOpen: false,
-    loadingError: errorsInitialState,
-    formError: errorsInitialState,
-    errorOccurred: false,
-    errorMessage: '',
 };
 
 export default function authorReducer(store = initialState, action) {
@@ -26,10 +18,6 @@ export default function authorReducer(store = initialState, action) {
         case LOAD_AUTHORS:
             return update(store, {
                 isLoading: { $set: true },
-                loadingError: {
-                    occurred: { $set: false },
-                    message: { $set: '' }
-                },
             });
 
         case LOAD_AUTHORS_SUCCESS:
@@ -46,10 +34,6 @@ export default function authorReducer(store = initialState, action) {
         case LOAD_AUTHORS_ERROR:
             return update(store, {
                 isLoading: { $set: false },
-                loadingError: {
-                    occurred: { $set: action.error },
-                    message: { $set: action.payload.message }
-                },
             });
 
         case CREATE_AUTHOR_SUCCESS:

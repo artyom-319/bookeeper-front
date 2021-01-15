@@ -8,8 +8,6 @@ const initialState = {
     objects: {},
     isLoading: false,
     isModalOpen: false,
-    errorOccurred: false,
-    errorMessage: '',
 };
 
 export default function booksReducer(store = initialState, action) {
@@ -17,8 +15,6 @@ export default function booksReducer(store = initialState, action) {
         case LOAD_BOOKS:
             return update(store, {
                 isLoading: { $set: true },
-                errorOccurred: { $set: false },
-                errorMessage: { $set: '' },
             });
 
         case LOAD_BOOKS_SUCCESS:
@@ -33,15 +29,11 @@ export default function booksReducer(store = initialState, action) {
             });
 
         case LOAD_BOOKS_ERROR:
-            console.log(action);
             return update(store, {
                 isLoading: { $set: false },
-                errorOccurred: { $set: action.error },
-                errorMessage: { $set: action.payload.message },
             });
 
         case CREATE_BOOK_SUCCESS:
-            console.log(action);
             const createdBook = mapDtoToObject(action.payload);
             return update(store, {
                 isModalOpen: { $set: false },
