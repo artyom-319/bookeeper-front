@@ -42,8 +42,6 @@ export default function booksReducer(store = initialState, action) {
             });
 
         case DELETE_BOOK_SUCCESS:
-            // todo: вычистить консоль логи
-            console.log(action);
             const deletedId = action.meta.entityId;
             const resultObjects = Object.keys(store.objects)
                 .filter( key => key !== deletedId )

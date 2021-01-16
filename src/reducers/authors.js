@@ -37,14 +37,12 @@ export default function authorReducer(store = initialState, action) {
             });
 
         case CREATE_AUTHOR_SUCCESS:
-            console.log(action);
             return update(store, {
                 isModalOpen: { $set: false },
                 objectIds: { $unshift: [ action.payload.id ] },
                 objects: { $merge: { [action.payload.id]: action.payload }}
             });
         case DELETE_AUTHOR_SUCCESS:
-            console.log(action);
             const deletedId = action.meta.entityId;
             const resultObjects = Object.keys(store.objects)
                 .filter( key => key !== deletedId )
