@@ -49,6 +49,7 @@ class AuthorFormComponent extends React.Component {
                         name="name"
                         placeholder="Name"
                         onChange={ this.onChange }
+                        required
                     />
                 </Form.Group>
                 <Form.Group className="b-form-field-wrapper">

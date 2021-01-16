@@ -67,6 +67,7 @@ class BookFormComponent extends React.Component {
                 <Form>
                     <Form.Group className="b-form-field-wrapper">
                         <Form.Control
+                            required={ true }
                             className="b-book-title-form-field"
                             value={ this.state.title }
                             type="text"
