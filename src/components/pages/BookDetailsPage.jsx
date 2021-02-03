@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -12,6 +13,10 @@ import { loadBookDetails, deleteBook, openEditMode, closeEditMode, updateBook } 
 import urls from '../../constants/urls';
 
 class BookDetailsPageComponent extends React.Component {
+    state = {
+        redirect: false,
+    };
+
     openEditMode = () => {
         this.props.openEditMode();
     };
@@ -23,6 +28,7 @@ class BookDetailsPageComponent extends React.Component {
     deleteBook = () => {
         const url = `${ urls.books }/${ this.props.id }`;
         this.props.deleteBook(url, this.props.id);
+        this.setState({ redirect: true });
     };
 
     updateBook = data => {
@@ -35,6 +41,9 @@ class BookDetailsPageComponent extends React.Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/books"/>;
+        }
         if (this.props.errorOccurred) {
             return ( <div><h3>{ this.props.errorMessage }</h3></div> );
         }

@@ -1,52 +1,32 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import selectPage from '../../actions/routing';
-import { BOOK_DETAILS_PAGE, AUTHOR_DETAILS_PAGE, GENRE_BOOKS_PAGE } from '../../constants/pages';
 import '../../styles/base.css';
 
 class BookComponent extends React.Component {
-
-    onBookSelect = () => {
-        this.props.selectPage(BOOK_DETAILS_PAGE, this.props.id);
-    };
-
-    onAuthorSelect = () => {
-        this.props.selectPage(AUTHOR_DETAILS_PAGE, this.props.author.id);
-    };
-
-    onGenreSelect = () => {
-        this.props.selectPage(GENRE_BOOKS_PAGE, this.props.genre);
-    };
-
     render() {
         let genre = null;
         if (this.props.genre) {
             genre =
-                <a className="text-secondary pre-small"
-                   // href=""
-                   onClick={ this.onGenreSelect }
+                <Link className="text-secondary pre-small"
+                   to={ `/genres/${ this.props.genre }/books` }
                 >
                     { this.props.genre }
-                </a>;
+                </Link>;
         }
         return (
             <div>
                 <div className="row">
-                    <a className="pre-large col-8 text-decoration-none text-dark"
-                       // href={ `/books/${ this.props.id }` }
-                       onSelect={ this.onBookSelect }
-                       onClick={ this.onBookSelect }>
+                    <Link className="pre-large col-8 text-decoration-none text-dark"
+                       to={ `/books/${ this.props.id }` }>
                         { this.props.title }
-                    </a>
-                    <a className="book-author col-4 text-decoration-none"
-                       // href={ `/authors/${ this.props.author.id }` }
-                       onClick={ this.onAuthorSelect }
-                       onSelect={ this.onAuthorSelect }>
+                    </Link>
+                    <Link className="book-author col-4 text-decoration-none"
+                       to={ `/authors/${ this.props.author.id }` }>
                         { this.props.author.name }
-                    </a>
+                    </Link>
                     <br/>
                 </div>
                 { genre }
@@ -65,8 +45,4 @@ const mapStateToProps = (state, props) => ({
     genre: state.book.list.objects[props.id].genre,
 });
 
-const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ selectPage }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookComponent);
+export default connect(mapStateToProps)(BookComponent);

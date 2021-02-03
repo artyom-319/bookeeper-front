@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Nav, Navbar } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { closeErrorModal } from '../actions/errors';
 
-import { AUTHORS_PAGE, BOOKS_PAGE, GENRES_PAGE, MAIN_PAGE } from '../constants/pages';
 import ErrorModal from './ModalWrapper';
 
 class LayoutComponent extends React.Component {
@@ -13,11 +12,13 @@ class LayoutComponent extends React.Component {
         return (
             <div>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand onClick={ () => this.props.onSelect(MAIN_PAGE) } href="#">Bookeeper</Navbar.Brand>
+                    <Link to="/">
+                        <Navbar.Brand>Bookeeper</Navbar.Brand>
+                    </Link>
                     <Nav className="mr-auto">
-                        <Nav.Link onClick={ () => this.props.onSelect(BOOKS_PAGE) }>Books</Nav.Link>
-                        <Nav.Link onClick={ () => this.props.onSelect(AUTHORS_PAGE) }>Authors</Nav.Link>
-                        <Nav.Link onClick={ () => this.props.onSelect(GENRES_PAGE) }>Genres</Nav.Link>
+                        <Nav.Link as={ Link } to="/books" >Books</Nav.Link>
+                        <Nav.Link as={ Link } to="/authors" >Authors</Nav.Link>
+                        <Nav.Link as={ Link } to="/genres" >Genres</Nav.Link>
                     </Nav>
                 </Navbar>
                 <br/>
@@ -35,10 +36,6 @@ class LayoutComponent extends React.Component {
         );
     }
 }
-
-LayoutComponent.propTypes = {
-    onSelect: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = state => ({
     errorOccurred: state.errors.modal.occurred,
