@@ -17,6 +17,7 @@ export const login = (username, password) => {
         headers: {
             'content-type': 'application/x-www-form-urlencoded',
         },
+        credentials: 'include',
         body: body,
         types: [
             LOG_IN,
@@ -32,6 +33,11 @@ export const login = (username, password) => {
             LOG_IN_ERROR,
         ],
     });
+};
+
+export const loginFetch = (username, password) => {
+    const body = prepareFormUrlEncodedView(username, password);
+
 };
 
 export const logout = () => {
