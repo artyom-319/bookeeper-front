@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import authReducer from './auth';
 import authorReducer from './authors';
 import authorDetailsReducer from './author_details';
 import authorErrorReducer from './author_errors';
@@ -27,5 +28,6 @@ export default function initReducers() {
             list: genreReducer,
             errors: genreErrorReducer,
         }),
+        auth: authReducer,
     });
 }

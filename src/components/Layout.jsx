@@ -20,6 +20,14 @@ class LayoutComponent extends React.Component {
                         <Nav.Link as={ Link } to="/authors" >Authors</Nav.Link>
                         <Nav.Link as={ Link } to="/genres" >Genres</Nav.Link>
                     </Nav>
+                    <Navbar.Collapse className="justify-content-end">
+                        { this.props.authenticated ?
+                            <Navbar.Text>
+                                Signed in as: { this.props.username }
+                            </Navbar.Text>
+                            : <Nav.Link as={ Link } to="/login">Login</Nav.Link>
+                        }
+                    </Navbar.Collapse>
                 </Navbar>
                 <br/>
                 <div className="b-content">
@@ -40,6 +48,8 @@ class LayoutComponent extends React.Component {
 const mapStateToProps = state => ({
     errorOccurred: state.errors.modal.occurred,
     errorMessage: state.errors.modal.message,
+    authenticated: state.auth.isAuthenticated,
+    username: state.auth.username,
 });
 
 const mapDispatchToProps = dispatch => ({

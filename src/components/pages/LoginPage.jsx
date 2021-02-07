@@ -1,5 +1,9 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+import { bindActionCreators } from 'redux';
+import { login } from '../../actions/auth';
 
 const initialState = {
     username: '',
@@ -11,6 +15,8 @@ class LoginPageComponent extends React.Component {
 
     onCreate = e => {
         e.preventDefault();
+        let { username, password } = this.state;
+        this.props.login(username, password);
     };
 
     onChange = e => {
@@ -20,6 +26,9 @@ class LoginPageComponent extends React.Component {
     };
 
     render() {
+        if (this.props.authenticated) {
+            return <Redirect to="/books"/>;
+        }
         return (
             <Form>
                 <Form.Group className="b-form-field-wrapper">
@@ -34,10 +43,9 @@ class LoginPageComponent extends React.Component {
                 </Form.Group>
                 <Form.Group className="b-form-field-wrapper">
                     <Form.Control
-                        as="textarea"
                         className="b-password-form-field"
                         value={ this.state.password }
-                        type="text"
+                        type="password"
                         name="password"
                         placeholder="Password"
                         onChange={ this.onChange }
@@ -49,4 +57,12 @@ class LoginPageComponent extends React.Component {
     }
 }
 
-export default LoginPageComponent;
+const mapStateToProps = state => ({
+    authenticated: state.auth.isAuthenticated,
+});
+
+const mapDispatchToProps = dispatch => ({
+    ...bindActionCreators({ login }, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPageComponent);
