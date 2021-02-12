@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
@@ -13,6 +12,7 @@ import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
 import urls from '../constants/urls';
 import '../styles/base.css';
+import ProtectedRoute from './ProtectedRoute';
 
 
 class AppComponent extends React.Component {
@@ -25,22 +25,22 @@ class AppComponent extends React.Component {
                             <Route path="/" exact>
                                 <MainPage/>
                             </Route>
-                            <Route path="/books" exact>
+                            <ProtectedRoute path="/books" exact>
                                 <BooksPage booksFetchUrl={ urls.books }/>
-                            </Route>
-                            <Route path="/authors" exact>
+                            </ProtectedRoute>
+                            <ProtectedRoute path="/authors" exact>
                                 <AuthorsPage/>
-                            </Route>
-                            <Route path="/genres" exact>
+                            </ProtectedRoute>
+                            <ProtectedRoute path="/genres" exact>
                                 <GenresPage/>
-                            </Route>
-                            <Route path="/authors/:id" render={ props =>
+                            </ProtectedRoute>
+                            <ProtectedRoute path="/authors/:id" render={ props =>
                                 <AuthorDetailsPage id={ props.match.params.id }/>
                             }/>
-                            <Route path="/books/:id" render={ props =>
+                            <ProtectedRoute path="/books/:id" render={ props =>
                                 <BookDetailsPage id={ props.match.params.id }/>
                             }/>
-                            <Route path="/genres/:title/books" render={ props => {
+                            <ProtectedRoute path="/genres/:title/books" render={ props => {
                                 const url = `${ urls.genres }/${ props.match.params.title }/books`;
                                 return <BooksPage booksFetchUrl={ url }
                                                   pageTitle={ `Books of ${ props.match.params.title } genre` }/>;
