@@ -29,6 +29,7 @@ export const loadAuthors = (url) => {
     return createAction({
         endpoint: url,
         method: 'GET',
+        credentials: 'include',
         types: [
             LOAD_AUTHORS,
             LOAD_AUTHORS_SUCCESS,

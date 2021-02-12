@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Container, Form } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -30,29 +30,32 @@ class LoginPageComponent extends React.Component {
             return <Redirect to="/books"/>;
         }
         return (
-            <Form>
-                <Form.Group className="b-form-field-wrapper">
-                    <Form.Control
-                        className="b-username-form-field"
-                        value={ this.state.username }
-                        type="text"
-                        name="username"
-                        placeholder="Your name"
-                        onChange={ this.onChange }
-                    />
-                </Form.Group>
-                <Form.Group className="b-form-field-wrapper">
-                    <Form.Control
-                        className="b-password-form-field"
-                        value={ this.state.password }
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        onChange={ this.onChange }
-                    />
-                </Form.Group>
-                <Button className="btn btn-primary mb-3" onClick={ this.onCreate }>Log In</Button>
-            </Form>
+            <Container>
+                <h4>It's high time to log in!</h4>
+                <Form>
+                    <Form.Group className="b-form-field-wrapper">
+                        <Form.Control
+                            className="b-username-form-field"
+                            value={ this.state.username }
+                            type="text"
+                            name="username"
+                            placeholder="Your name"
+                            onChange={ this.onChange }
+                        />
+                    </Form.Group>
+                    <Form.Group className="b-form-field-wrapper">
+                        <Form.Control
+                            className="b-password-form-field"
+                            value={ this.state.password }
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={ this.onChange }
+                        />
+                    </Form.Group>
+                    <Button className="btn btn-primary mb-3" onClick={ this.onCreate }>Log In</Button>
+                </Form>
+            </Container>
         );
     }
 }
