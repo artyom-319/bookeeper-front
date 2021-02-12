@@ -5,6 +5,8 @@ export const LOG_IN = 'LOG_IN';
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_IN_ERROR = 'LOG_IN_ERROR';
 export const LOG_OUT = 'LOG_OUT';
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
+export const LOG_OUT_ERROR = 'LOG_OUT_ERROR';
 
 const USERNAME_FORM_LABEL = 'username';
 const PASSWORD_FORM_LABEL = 'password';
@@ -35,16 +37,21 @@ export const login = (username, password) => {
     });
 };
 
-export const loginFetch = (username, password) => {
-    const body = prepareFormUrlEncodedView(username, password);
-
-};
-
-export const logout = () => {
-    return {
-        type: LOG_OUT,
-    };
-};
+export const logout = () => (
+    createAction({
+        endpoint: urls.logout,
+        method: 'GET',
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+        },
+        credentials: 'include',
+        types: [
+            LOG_OUT,
+            LOG_OUT_SUCCESS,
+            LOG_OUT_ERROR,
+        ],
+    })
+);
 
 const prepareFormUrlEncodedView = (username, password) => (
     `${ USERNAME_FORM_LABEL }=${ username }&${ PASSWORD_FORM_LABEL }=${ password }`

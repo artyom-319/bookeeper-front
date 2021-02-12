@@ -1,14 +1,13 @@
 import update from 'react-addons-update';
-import { LOG_IN_ERROR, LOG_IN_SUCCESS } from '../actions/auth';
+import { LOG_IN_ERROR, LOG_IN_SUCCESS, LOG_OUT, LOG_OUT_ERROR, LOG_OUT_SUCCESS } from '../actions/auth';
 
 const initialState = {
     isAuthenticated: false,
     username: '',
+    authRequired: false,
 };
 
 export default function authReducer(store = initialState, action) {
-    console.log(action);
-    console.log(document.cookie);
     switch (action.type) {
         case LOG_IN_SUCCESS:
             return update(store, {
@@ -17,7 +16,20 @@ export default function authReducer(store = initialState, action) {
             });
         case LOG_IN_ERROR:
             return store;
-        default:
-            return store;
+        case LOG_OUT || LOG_OUT_SUCCESS || LOG_OUT_ERROR:
+            return update(store, {
+                isAuthenticated: { $set: false },
+                username: { $set: '' },
+            })
+        default: {
+            if (action.error === true && action.payload.status === 401) {
+                return update(store, {
+                    authRequired: { $set: true },
+                });
+            }
+            return update(store, {
+                authRequired: { $set: false },
+            });
+        }
     }
 }
