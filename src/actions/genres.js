@@ -8,6 +8,7 @@ export const loadGenres = (url) => {
     return createAction({
         endpoint: url,
         method: 'GET',
+        credentials: 'include',
         types: [
             LOAD_GENRES,
             LOAD_GENRES_SUCCESS,

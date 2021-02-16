@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Card, Container, Row, Spinner } from 'react-bootstrap';
@@ -11,6 +12,10 @@ import BookList from '../book/BookList';
 import AuthorForm from '../author/AuthorForm';
 
 class AuthorDetailsPageComponent extends React.Component {
+    state = {
+        redirect: false,
+    };
+
     openEditMode = () => {
         this.props.openEditMode();
     };
@@ -22,6 +27,7 @@ class AuthorDetailsPageComponent extends React.Component {
     deleteAuthor = () => {
         const url = `${ urls.authors }/${ this.props.id }`;
         this.props.deleteAuthor(url, this.props.id);
+        this.setState({ redirect: true });
     };
 
     updateAuthor = data => {
@@ -34,6 +40,9 @@ class AuthorDetailsPageComponent extends React.Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect to="/authors"/>;
+        }
         if (this.props.errorOccurred) {
             return ( <div><h3>{ this.props.errorMessage }</h3></div> );
         }

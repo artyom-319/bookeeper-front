@@ -34,6 +34,7 @@ export const loadBooks = url => {
     return createAction({
         endpoint: url,
         method: 'GET',
+        credentials: 'include',
         types: [
             LOAD_BOOKS,
             LOAD_BOOKS_SUCCESS,
@@ -46,6 +47,7 @@ export const loadBookDetails = url => (
     createAction({
         endpoint: url,
         method: 'GET',
+        credentials: 'include',
         types: [
             LOAD_BOOK_DETAILS,
             LOAD_BOOK_DETAILS_SUCCESS,
@@ -59,6 +61,7 @@ export const createBook = (url, data) => {
         endpoint: url,
         method: 'POST',
         body: data,
+        credentials: 'include',
         headers: {
             'content-type': 'application/json',
         },
@@ -74,6 +77,7 @@ export const deleteBook = (url, entityId) => {
     return createAction({
         endpoint: url,
         method: 'DELETE',
+        credentials: 'include',
         types: [
             DELETE_BOOK,
             {
@@ -91,6 +95,7 @@ export const createComment = (url, data) => (
     createAction({
         endpoint: url,
         method: 'POST',
+        credentials: 'include',
         body: data,
         headers: {
             'content-type': 'application/json',
@@ -108,6 +113,7 @@ export const updateBook = (url, data) => (
         endpoint: url,
         method: 'PUT',
         body: data,
+        credentials: 'include',
         headers: {
             'content-type': 'application/json',
         },

@@ -3,7 +3,7 @@ import { createMiddleware } from 'redux-api-middleware';
 
 import initReducers from './reducers';
 
-const initialStore = {};
+const initialState = {};
 
 const initStore = () => {
     const enhancers = [];
@@ -11,11 +11,19 @@ const initStore = () => {
         enhancers.push(window.devToolsExtension());
     }
 
-    return createStore(
+    const persistedState = localStorage.getItem('reduxState')
+        ? JSON.parse(localStorage.getItem('reduxState'))
+        : initialState
+
+    const store =  createStore(
         initReducers(),
-        initialStore,
+        persistedState,
         compose(applyMiddleware(createMiddleware()), ...enhancers)
     );
+    store.subscribe(
+        () => localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+    );
+    return store;
 };
 
 export default initStore;

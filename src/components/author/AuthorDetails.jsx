@@ -7,10 +7,10 @@ class AuthorDetailsComponent extends React.Component {
         return (
             <Card body className="col-md-12">
                 <Row className="row">
-                    <Col className="col-9">
+                    <Col className="col-8">
                         <b>{ this.props.name }</b>
                     </Col>
-                    <Col className="col-1">
+                    <Col className="col-2">
                         <a onClick={ this.props.onEdit } className="text-decoration-none" href="#">edit</a>
                     </Col>
                     <Col className="col-2">

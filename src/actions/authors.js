@@ -29,6 +29,7 @@ export const loadAuthors = (url) => {
     return createAction({
         endpoint: url,
         method: 'GET',
+        credentials: 'include',
         types: [
             LOAD_AUTHORS,
             LOAD_AUTHORS_SUCCESS,
@@ -42,6 +43,7 @@ export const createAuthor = (url, data) => {
         endpoint: url,
         method: 'POST',
         body: data,
+        credentials: 'include',
         headers: {
             'content-type': 'application/json',
         },
@@ -57,6 +59,7 @@ export const loadAuthorDetails = url => {
     return createAction({
         endpoint: url,
         method: 'GET',
+        credentials: 'include',
         types: [
             LOAD_AUTHOR_DETAILS,
             LOAD_AUTHOR_DETAILS_SUCCESS,
@@ -69,6 +72,7 @@ export const deleteAuthor = (url, entityId) => {
     return createAction({
         endpoint: url,
         method: 'DELETE',
+        credentials: 'include',
         types: [
             DELETE_AUTHOR,
             {
@@ -87,6 +91,7 @@ export const updateAuthor = (url, data) => (
         endpoint: url,
         method: 'PUT',
         body: data,
+        credentials: 'include',
         headers: {
             'content-type': 'application/json',
         },

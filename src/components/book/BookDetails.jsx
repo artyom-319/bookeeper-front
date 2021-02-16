@@ -1,30 +1,20 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Card, Col, Row } from 'react-bootstrap';
 
-import selectPage from '../../actions/routing';
-import { AUTHOR_DETAILS_PAGE, GENRE_BOOKS_PAGE } from '../../constants/pages';
-
 class BookDetailsComponent extends React.Component {
-    onAuthorSelect = () => {
-        this.props.selectPage(AUTHOR_DETAILS_PAGE, this.props.author.id);
-    };
-
-    onGenreSelect = () => {
-        this.props.selectPage(GENRE_BOOKS_PAGE, this.props.genre);
-    };
-
     render() {
         let genreRow = null;
         if (this.props.genre) {
             genreRow =
                 <Row className="row">
                     <Col>
-                        <small className="text-primary" onClick={ this.onGenreSelect }>
-                            [{ this.props.genre }]
-                        </small>
+                        <Link to={ `/genres/${ this.props.genre }/books` }>
+                            <small className="text-primary">
+                                [{ this.props.genre }]
+                            </small>
+                        </Link>
                         <br/>
                     </Col>
                 </Row>;
@@ -44,9 +34,9 @@ class BookDetailsComponent extends React.Component {
                 </Row>
                 <Row className="row">
                     <Col>
-                        <a className="text-secondary text-decoration-none" onClick={ this.onAuthorSelect }>
+                        <Link className="text-secondary text-decoration-none" to={ `/authors/${ this.props.author.id }` }>
                             { this.props.author.name }
-                        </a>
+                        </Link>
                     </Col>
                 </Row>
                 <br/>
@@ -68,11 +58,4 @@ BookDetailsComponent.propTypes = {
     onEdit: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
-});
-
-const mapDispatchToProps = dispatch => ({
-    ...bindActionCreators({ selectPage }, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BookDetailsComponent);
+export default BookDetailsComponent;
